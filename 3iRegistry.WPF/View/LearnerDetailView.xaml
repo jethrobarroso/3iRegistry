@@ -1,0 +1,112 @@
+﻿<dialogs:CustomDialog x:Class="_3iRegistry.WPF.View.LearnerDetailView"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"         
+                      xmlns:local="clr-namespace:_3iRegistry.WPF.View"
+                      mc:Ignorable="d" Title="Dependant Details"
+                      d:DesignHeight="350" d:DesignWidth="800"
+                      DataContext="{Binding Source={StaticResource viewModelLocator}, Path=LearnerDetailViewModel}">
+
+  <dialogs:CustomDialog.Resources>
+    <Style TargetType="{x:Type Label}">
+      <Setter Property="HorizontalAlignment" Value="Right"></Setter>
+    </Style>
+  </dialogs:CustomDialog.Resources>
+
+  <Grid>
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="50"/> 
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+    <Grid Margin="10" Grid.ColumnSpan="2">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="auto"/>
+        <ColumnDefinition/>
+      </Grid.ColumnDefinitions>
+      <Grid.RowDefinitions>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
+      </Grid.RowDefinitions>
+
+      <Label Template="{StaticResource requiredLable}" Grid.Row="0" Margin="0,5,0,0" Content="First Name"></Label>
+      <TextBox x:Name="txtFirstName" Grid.Row="0" Margin="0,5,0,0" Grid.Column="1"
+               Style="{StaticResource ValidateTextBox}"
+               Text="{Binding CopiedLearner.FirstName, UpdateSourceTrigger=PropertyChanged,
+                      ValidatesOnDataErrors=True}"></TextBox>
+
+      <Label Template="{StaticResource requiredLable}"
+             Grid.Row="1" Margin="0,5,0,0" Content="Last Name"></Label>
+      <TextBox x:Name="txtLastName" Grid.Row="1" Margin="0,5,0,0" Grid.Column="1"
+               Style="{StaticResource ValidateTextBox}"
+               Text="{Binding CopiedLearner.LastName, UpdateSourceTrigger=PropertyChanged, 
+                      ValidatesOnDataErrors=True}"></TextBox>
+
+      <Label Grid.Row="2" Margin="0,5,0,0" Content="Gender"></Label>
+      <ComboBox Grid.Row="2" Margin="0,5,0,0" Grid.Column="1"
+                ItemsSource="{Binding CopiedLearner.Gender, Converter={StaticResource localGenderListConverter}}"
+                SelectedIndex="{Binding CopiedLearner.Gender, Converter={StaticResource localEnumSelectionConverter}}"/>
+
+      <Label Template="{StaticResource requiredLable}" Grid.Row="3" Margin="0,5,0,0" Content="Date of Birth"></Label>
+      <DatePicker x:Name="datePickerDOB" Grid.Row="3" HorizontalAlignment="Left"
+                          Margin="0,5,0,0" Grid.Column="1" 
+                          SelectedDate="{Binding CopiedLearner.DOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, 
+                                         Converter={StaticResource dateConverter}}" />
+
+      <Label Template="{StaticResource requiredLable}" 
+             Grid.Row="4" Margin="0,5,0,0" Content="Grade"></Label>
+      <TextBox x:Name="txtGrade" Grid.Row="4" Margin="0,5,0,0" Grid.Column="1"
+               Style="{StaticResource ValidateTextBox}"
+               Text="{Binding CopiedLearner.Grade, UpdateSourceTrigger=PropertyChanged, 
+                      ValidatesOnDataErrors=True}"></TextBox>
+
+      <Label Grid.Row="5" Margin="0,5,0,0" Content="School"></Label>
+      <ComboBox Grid.Row="5" Margin="0,5,0,0" Grid.Column="1"
+                ItemsSource="{Binding Schools}" IsEditable="True"
+                Text="{Binding CopiedLearner.School, UpdateSourceTrigger=PropertyChanged,
+                       ValidatesOnDataErrors=True}"/>
+    </Grid>
+
+    <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center">
+      <Button Width="100"  Margin="0,10,0,0" Command="{Binding SaveCommand}">
+        <StackPanel Orientation="Horizontal">
+          <TextBlock Text="Save" FontSize="16" Margin="0,0,10,0"></TextBlock>
+          <iconPacks:PackIconFontAwesome Kind="UserCheckSolid" Width="24" Height="24"/>
+        </StackPanel>
+      </Button>
+      <Button Width="100" Grid.Row="5" Grid.Column="1" Margin="0,10,50,0" Command="{Binding CancelCommand}">
+        <StackPanel Orientation="Horizontal">
+          <TextBlock Text="Cancel" FontSize="16" Margin="0,0,10,0"></TextBlock>
+          <iconPacks:PackIconFontAwesome Kind="BanSolid" Width="24" Height="24"/>
+        </StackPanel>
+      </Button>
+      <Button Grid.Row="5" Grid.Column="1" Margin="0,10,0,0" Command="{Binding DeleteCommand}">
+        <Button.Style>
+          <Style TargetType="{x:Type Button}" BasedOn="{StaticResource MahApps.Styles.Button}">
+            <Setter Property="Visibility" Value="Visible"></Setter>
+            <Style.Triggers>
+              <DataTrigger Binding="{Binding Deletable}" Value="False">
+                <Setter Property="Visibility" Value="Collapsed"/>
+              </DataTrigger>
+            </Style.Triggers>
+          </Style>
+        </Button.Style>
+        <StackPanel Orientation="Horizontal">
+          <TextBlock Text="Delete" FontSize="16" Margin="0,0,10,0"></TextBlock>
+          <iconPacks:PackIconModern Kind="Delete" Width="24" Height="24"/>
+        </StackPanel>
+      </Button>
+    </StackPanel>
+  </Grid>
+</dialogs:CustomDialog>

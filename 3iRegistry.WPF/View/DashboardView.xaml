@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="_3iRegistry.WPF.View.DashboardView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:_3iRegistry.WPF.View"
+      mc:Ignorable="d" d:DesignHeight="450" d:DesignWidth="800"
+      DataContext="{Binding Source={StaticResource viewModelLocator}, Path=DashboardViewModel}"
+      xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+      Dialog:DialogParticipation.Register="{Binding}">
+
+  <Grid>
+    <DataGrid Grid.Column="1" ItemsSource="{Binding Beneficiaries}" IsReadOnly="True" 
+              AutoGenerateColumns="False" CanUserAddRows="False" SelectedItem="{Binding SelectedBeneficiary}"
+              Style="{StaticResource MahApps.Styles.DataGrid.Azure}" GridLinesVisibility="All">
+      <DataGrid.Columns>
+        <DataGridTextColumn Header="Id" Binding="{Binding Path=PersonId}" />
+        <DataGridTextColumn Header="Full Names" Binding="{Binding Path=FirstName}" />
+        <DataGridTextColumn Header="Last Name" Binding="{Binding Path=LastName}" />
+        <DataGridTextColumn Header="Gender" Binding="{Binding Path=Gender}" />
+        <DataGridTextColumn Header="Project" Binding="{Binding Path=Hop.Project}" />
+        <DataGridTextColumn Header="Block" Binding="{Binding Path=Hop.Block}" />
+        <DataGridTextColumn Header="Unit" Binding="{Binding Path=Hop.Unit}" />
+        <DataGridTextColumn Header="Electricity" Binding="{Binding Path=Hop.Elec}" />
+        <DataGridTextColumn Header="Water (M)" Binding="{Binding Path=Hop.WaterM}" />
+        <DataGridTextColumn Header="Water (E)" Binding="{Binding Path=Hop.WaterE}" />
+        <DataGridTextColumn Header="Primary Contact" Binding="{Binding Path=Contact}" />
+        <DataGridTextColumn Header="Alt. Contact" Binding="{Binding Path=AltContact}" />
+        <DataGridTextColumn Header="Email" Binding="{Binding Path=Email}" />
+        <DataGridTextColumn Header="Team" Binding="{Binding Path=Team}" />
+        <DataGridTextColumn Header="Settlement" Binding="{Binding Path=Settlement}" />
+        <DataGridTextColumn Header="Address" Binding="{Binding Path=Address}" />
+        <DataGridTextColumn Header="Furniture" 
+                            Binding="{Binding Path=Furniture, Converter={StaticResource localFurnitureConverter}}" />
+        <DataGridTextColumn Header="Spouse(s)" 
+                            Binding="{Binding Path=Partners, Converter={StaticResource localSpouseConverter}}" />
+        <DataGridTextColumn Header="Learners" 
+                            Binding="{Binding Path=Learners, Converter={StaticResource localLearnerConverter}}" />
+        <DataGridTextColumn Header="DSTV" Binding="{Binding Path=DSTV}" />
+        <DataGridTextColumn Header="Total Household Members" Binding="{Binding Path=HouseholdMemberCount}" />
+        <DataGridTextColumn Header="Unemployed" Binding="{Binding Path=UnemployedCount}" />
+        <DataGridTextColumn Header="Grant Count" Binding="{Binding Path=GrantCount}" />
+        <DataGridTextColumn Header="Chronic Illnesses" Binding="{Binding Path=IllnessCount}" />
+        <DataGridTextColumn Header="Chronic Illness Description" Binding="{Binding Path=IllnessDescription}" />
+        <DataGridTextColumn Header="Grant Description" Binding="{Binding Path=GrantDescription}" />
+        <DataGridTextColumn Header="Notes" Binding="{Binding Path=Notes}" />
+      </DataGrid.Columns>
+    </DataGrid>
+  </Grid>
+</UserControl>

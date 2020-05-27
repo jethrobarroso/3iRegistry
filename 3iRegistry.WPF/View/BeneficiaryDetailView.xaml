@@ -1,0 +1,385 @@
+﻿<UserControl x:Class="_3iRegistry.WPF.View.BeneficiaryDetailView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+      xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
+      Dialog:DialogParticipation.Register="{Binding}"
+      mc:Ignorable="d" d:DesignHeight="1250" d:DesignWidth="800"
+      DataContext="{Binding Source={StaticResource viewModelLocator}, Path=BeneficiaryDetailViewModel}">
+
+  <UserControl.Resources>
+    <Style TargetType="{x:Type Label}">
+      <Setter Property="HorizontalContentAlignment" Value="Right"></Setter>
+      <Setter Property="Margin" Value="0,0,5,0"></Setter>
+      <Setter Property="Width" Value="95"></Setter>
+    </Style>
+
+    <Style x:Key="counterLabel" TargetType="{x:Type Label}">
+      <Setter Property="Width" Value="150 "/>
+      <Setter Property="HorizontalContentAlignment" Value="Right"/>
+    </Style>
+  </UserControl.Resources>
+
+  <!-- Page main grid-->
+  <Grid x:Name="gridTest">
+    <Grid.RowDefinitions>
+      <RowDefinition/>
+      <RowDefinition Height="50"/>
+    </Grid.RowDefinitions>
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition/>
+      <ColumnDefinition/>
+    </Grid.ColumnDefinitions>
+    <!-- All content in scrollable area -->
+    <ScrollViewer x:Name="scrollMain" Grid.ColumnSpan="2" VerticalScrollBarVisibility="Auto">
+      <WrapPanel x:Name="wrapBeneficiaryInfo">
+        <i:Interaction.Triggers>
+          <i:EventTrigger EventName="SizeChanged">
+            <i:InvokeCommandAction Command="{Binding UpdatePageLayoutCommand}"
+                                   CommandParameter="{Binding ElementName=wrapBeneficiaryInfo, Path=ActualWidth}"/>
+          </i:EventTrigger>
+          <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding UpdatePageLayoutCommand}"
+                                   CommandParameter="{Binding ElementName=wrapBeneficiaryInfo, Path=ActualWidth}"/>
+          </i:EventTrigger>
+        </i:Interaction.Triggers>
+
+        <!-- General details groupbox -->
+        <StackPanel Width="{Binding GroupboxWidth}">
+          <GroupBox x:Name="groupbox1" Header="General information" Margin="10">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="56"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+              </Grid.RowDefinitions>
+
+              <Label Template="{StaticResource requiredLable}" 
+                     Grid.Row="0" Content="First Name" Margin="0,5,0,0"></Label>
+              <TextBox x:Name="txtFirstName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,5,0,0"  
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.FirstName, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}"></TextBox>
+
+              <Label Template="{StaticResource requiredLable}" 
+                     Grid.Row="1" Content="Last Name" Margin="0,5,0,0"></Label>
+              <TextBox x:Name="txtLastName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,5,0,0"  
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.LastName, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}"></TextBox>
+
+              <Label Template="{StaticResource requiredLable}" 
+                     Grid.Row="2" Content="ID Number" Margin="0,5,0,0"></Label>
+              <TextBox x:Name="txtId" Grid.Row="2" Grid.Column="1" Margin="0,5,0,0" 
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.PersonId, ValidatesOnDataErrors=True,
+                              UpdateSourceTrigger=PropertyChanged}"></TextBox>
+
+              <Label Template="{StaticResource requiredLable}" Grid.Column="2"
+                     Grid.Row="2" Content="Gender" Margin="0,5,0,0"></Label>
+              <ComboBox x:Name="comboGender" Grid.Row="2" Grid.Column="3" Margin="0,5,0,0" 
+                        Style="{StaticResource ValidateComboBox}"
+                        ItemsSource="{Binding CopiedBeneficiary.Gender, 
+                                      Converter={StaticResource localGenderListConverter}}"
+                        SelectedIndex="{Binding CopiedBeneficiary.Gender, ValidatesOnDataErrors=True,
+                                        Converter={StaticResource localEnumSelectionConverter}}"/>
+
+              <Label Template="{StaticResource requiredLable}" 
+                     Grid.Row="3" Content="Primary Contact" Margin="0,5,0,0"></Label>
+              <TextBox x:Name="txtContact" Grid.Row="3" Grid.Column="1" Margin="0,5,0,0"
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.Contact, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}"></TextBox>
+
+              <Label Template="{StaticResource requiredLable}" 
+                     Grid.Row="3" Content="Address" Grid.Column="2" Margin="0,5,0,0"></Label>
+              <TextBox x:Name="txtAddress" Grid.Row="3" Grid.Column="3" 
+                       Grid.RowSpan="3" Margin="0,5,0,0" TextWrapping="Wrap" 
+                       Style="{StaticResource ValidateTextBox}" AcceptsReturn="True"
+                       Text="{Binding CopiedBeneficiary.Address, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}" />
+
+              <Label Grid.Row="4" Content="Alt. Contact" Grid.Column="0" Margin="0,5,0,0"></Label>
+              <TextBox x:Name="txtAltContact" Grid.Row="4" Grid.Column="1" Margin="0,5,0,0"
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.AltContact, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}"></TextBox>
+
+              <Label Grid.Row="5" Content="Email" Grid.Column="0" Margin="0,5,0,0"></Label>
+              <TextBox x:Name="txtEmail" Grid.Row="5" Grid.Column="1" Margin="0,5,0,0"
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.Email, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}"></TextBox>
+              
+              <Label Grid.Row="6" Content="Team" Margin="0,5,0,0"></Label>
+              <TextBox x:Name="txtTeam" Grid.Row="6" Grid.Column="1" Margin="0,5,0,0" 
+                       Text="{Binding CopiedBeneficiary.Team, UpdateSourceTrigger=PropertyChanged, 
+                              ValidatesOnDataErrors=True}"/>
+
+              <Label Template="{StaticResource requiredLable}" Grid.Column="2"
+                     Grid.Row="6" Content="Settlement" Margin="0,5,0,0"></Label>
+              <ComboBox x:Name="comboSettlement" Grid.Row="6" Grid.Column="3" Margin="0,5,0,0" 
+                        ItemsSource="{Binding Settlements}" IsEditable="True"
+                        Text="{Binding CopiedBeneficiary.Settlement, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}" />
+
+              <Label Grid.Row="7" Content="Furniture" Margin="0,5,0,0"></Label>
+              <ListBox Style="{DynamicResource ScrollableListBox}" x:Name="listboxFurniture" Grid.Row="7" 
+                       Grid.Column="1" Margin="0,5,0,0" SelectedItem="{Binding SelectedFurniture}"
+                       ItemsSource="{Binding Furniture}" Grid.ColumnSpan="3"
+                       BorderThickness="1" BorderBrush="{Binding ElementName=txtLastName, Path=BorderBrush}">
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                      <TextBlock Text="{Binding Qty}"></TextBlock>
+                      <TextBlock Text=" x "></TextBlock>
+                      <TextBlock Text="{Binding Name}"></TextBlock>
+                    </StackPanel>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+              <StackPanel Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,5,0,0" 
+                    VerticalAlignment="Top" Grid.Row="7" Grid.Column="4">
+                <Button Command="{Binding EditSelectedFurnitureCommand}" 
+                        CommandParameter="{Binding EditParam}">
+                  <iconPacks:PackIconBoxIcons Kind="SolidEdit" />
+                </Button>
+                <Button Command="{Binding EditSelectedFurnitureCommand}" 
+                        CommandParameter="{Binding AddParam}">
+                  <iconPacks:PackIconFeatherIcons Kind="PlusSquare" />
+                </Button>
+              </StackPanel>
+
+              <Label Grid.Row="8" Content="DSTV" Margin="0,5,0,0"></Label>
+              <ComboBox x:Name="comboDSTV" Grid.Row="8" Grid.Column="1" 
+                        Margin="0,5,0,0" Grid.ColumnSpan="3"
+                        ItemsSource="{Binding CopiedBeneficiary.DSTV, Converter={StaticResource localDSTVListConverter}}"
+                        SelectedIndex="{Binding CopiedBeneficiary.DSTV, Converter={StaticResource localEnumSelectionConverter}}"></ComboBox>
+            </Grid>
+          </GroupBox>
+          <GroupBox DockPanel.Dock="Top" x:Name="groupbox2" Header="HOP Details" Margin="10">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="56"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+              </Grid.RowDefinitions>
+
+              <Label Template="{StaticResource requiredLable}"
+                     Grid.Row="0" Content="Project" Margin="0,5,0,0"></Label>
+              <TextBox x:Name="textboxProject" Grid.Row="0" Grid.Column="1" Margin="0,5,0,0"
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.Hop.Project, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}" />
+
+              <Label Template="{StaticResource requiredLable}"
+                     Grid.Row="1" Content="Block" Margin="0,5,0,0"></Label>
+              <TextBox x:Name="textboxBlock" Grid.Row="1" Grid.Column="1" Margin="0,5,0,0"
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.Hop.Block, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}" />
+
+              <Label Template="{StaticResource requiredLable}"
+                     Grid.Row="2" Content="Unit" Margin="0,5,0,0"></Label>
+              <TextBox x:Name="textboxUnit" Grid.Row="2" Grid.Column="1" Margin="0,5,0,0"
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.Hop.Unit, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}" />
+
+              <Label Template="{StaticResource requiredLable}" 
+                     Grid.Row="0" Content="Electricity" Margin="0,5,0,0" Grid.Column="2"></Label>
+              <TextBox x:Name="textboxElec" Grid.Row="0" Grid.Column="3" Margin="0,5,0,0"
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.Hop.Elec, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}" />
+
+              <Label Template="{StaticResource requiredLable}"
+                     Grid.Row="1" Content="Water (E)" Margin="0,5,0,0" Grid.Column="2"></Label>
+              <TextBox x:Name="textboxWaterE" Grid.Row="1" Grid.Column="3" Margin="0,5,0,0"
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.Hop.WaterE, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}" />
+
+              <Label Template="{StaticResource requiredLable}"
+                     Grid.Row="2" Content="Water (M)" Margin="0,5,0,0" Grid.Column="2"></Label>
+              <TextBox x:Name="textboxWaterM" Grid.Row="2" Grid.Column="3" Margin="0,5,0,0"
+                       Style="{StaticResource ValidateTextBox}"
+                       Text="{Binding CopiedBeneficiary.Hop.WaterM, UpdateSourceTrigger=PropertyChanged,
+                              ValidatesOnDataErrors=True}" />
+            </Grid>
+          </GroupBox>
+        </StackPanel>
+
+        <!-- HOP and Notes groupboxes -->
+        <StackPanel Width="{Binding GroupboxWidth}">
+
+
+          <GroupBox x:Name="groupbox3" Header="Additional Member Information" Margin="10" MinHeight="200">
+            <Grid>
+              <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition />
+                <ColumnDefinition Width="auto"/>
+              </Grid.ColumnDefinitions>
+              <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+              </Grid.RowDefinitions>
+
+              <Label Grid.Row="0" Content="Partner(s)" Margin="0,5,0,0"></Label>
+              <ListBox Style="{DynamicResource ScrollableListBox}" x:Name="listboxPartners" 
+                       Margin="0,5,0,0" Grid.Row="0" Grid.Column="1" 
+                       ItemsSource="{Binding Partners, NotifyOnSourceUpdated=True}"
+                       SelectedItem="{Binding SelectedPartner}" BorderThickness="1" 
+                       BorderBrush="{Binding ElementName=txtLastName, Path=BorderBrush}">
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding FullName}"></TextBlock>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+              <StackPanel Orientation="Horizontal" Height="30" VerticalAlignment="Top" Margin="0,5,0,0"
+                    HorizontalAlignment="Right" Grid.Row="0" Grid.Column="2">
+                <Button Command="{Binding EditSelectedPartnerCommand}"
+                        CommandParameter="{Binding EditParam}">
+                  <iconPacks:PackIconBoxIcons Kind="SolidEdit" />
+                </Button>
+                <Button Command="{Binding EditSelectedPartnerCommand}" 
+                        CommandParameter="{Binding AddParam}">
+                  <iconPacks:PackIconFeatherIcons Kind="PlusSquare" />
+                </Button>
+              </StackPanel>
+
+              <Label Grid.Row="1" Content="Dependant(s)" Margin="0,5,0,0"></Label>
+              <ListBox Style="{DynamicResource ScrollableListBox}" x:Name="listboxLeaners" 
+                       Grid.Row="1" Grid.Column="1" Margin="0,5,0,0" BorderThickness="1" 
+                       BorderBrush="{Binding ElementName=txtLastName, UpdateSourceTrigger=Explicit, Path=BorderBrush}"
+                       ItemsSource="{Binding Learners}" SelectedItem="{Binding SelectedLearner}">
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <TextBlock Text="{Binding FullName}"></TextBlock>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+              <StackPanel Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,5,0,0" 
+                    VerticalAlignment="Top" Grid.Row="1" Grid.Column="2">
+                <Button Command="{Binding EditSelectedLearnerCommand}" 
+                        CommandParameter="{Binding EditParam}">
+                  <iconPacks:PackIconBoxIcons Kind="SolidEdit" />
+                </Button>
+                <Button Command="{Binding EditSelectedLearnerCommand}" 
+                        CommandParameter="{Binding AddParam}">
+                  <iconPacks:PackIconFeatherIcons Kind="PlusSquare" />
+                </Button>
+              </StackPanel>
+
+              <WrapPanel Grid.Row="2" Grid.ColumnSpan="4" Margin="0,5,0,0" HorizontalAlignment="Center">
+                <DockPanel>
+                  <Label Content="Total Household Members" Style="{StaticResource counterLabel}"/>
+                  <Controls:NumericUpDown x:Name="numTotalHousehold" Width="100" HorizontalAlignment="Right"
+                                          Minimum="{Binding CopiedBeneficiary.MemberCountExclAdds, Mode=TwoWay}"
+                                          Value="{Binding CopiedBeneficiary.HouseholdMemberCount, Mode=TwoWay, 
+                                                  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                </DockPanel>
+                <DockPanel>
+                  <Label Content="Unemployed members" Style="{StaticResource counterLabel}"/>
+                  <Controls:NumericUpDown Width="100" HorizontalAlignment="Right" Minimum="0" 
+                                          Maximum="{Binding CopiedBeneficiary.HouseholdMemberCount}"
+                                          Value="{Binding CopiedBeneficiary.UnemployedCount, Mode=TwoWay, 
+                                                  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                </DockPanel>
+                <DockPanel>
+                  <Label Content="Grant count" Style="{StaticResource counterLabel}"/>
+                  <Controls:NumericUpDown Width="100" HorizontalAlignment="Right" Minimum="0"
+                                          Value="{Binding CopiedBeneficiary.GrantCount, Mode=TwoWay, 
+                                                  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                </DockPanel>
+                <DockPanel>
+                  <Label Content="Chronic illness count" Style="{StaticResource counterLabel}"/>
+                  <Controls:NumericUpDown Width="100" HorizontalAlignment="Right" Minimum="0"
+                                          Value="{Binding CopiedBeneficiary.IllnessCount, Mode=TwoWay, 
+                                                  UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
+                </DockPanel>
+                
+              </WrapPanel>
+              <WrapPanel Grid.Row="3" Grid.ColumnSpan="4" HorizontalAlignment="Center">
+                <StackPanel>
+                  <Label Content="List grants:" HorizontalContentAlignment="Center"></Label>
+                  <TextBox Height="150" Width="200" TextWrapping="Wrap" AcceptsReturn="True"
+                           Text="{Binding CopiedBeneficiary.GrantDescription, UpdateSourceTrigger=PropertyChanged}"/>
+                </StackPanel>
+                <StackPanel Margin="0,0,10,0">
+                  <Label Content="List chronic illnesses:" Width="auto" 
+                         HorizontalContentAlignment="Center"></Label>
+                  <TextBox Height="150" Width="200" Text="{Binding CopiedBeneficiary.IllnessDescription}" TextWrapping="Wrap" AcceptsReturn="True"/>
+                </StackPanel>
+              </WrapPanel>
+              <Grid>
+                <Grid.RowDefinitions>
+
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+
+                </Grid.ColumnDefinitions>
+              </Grid>
+            </Grid>
+          </GroupBox>
+
+          <GroupBox x:Name="groupbox4" Header="Notes" Margin="10" MinHeight="100">
+            <TextBox Text="{Binding CopiedBeneficiary.Notes, UpdateSourceTrigger=PropertyChanged}"
+                     TextWrapping="Wrap" AcceptsReturn="True"/>
+          </GroupBox>
+        </StackPanel>
+      </WrapPanel>
+    </ScrollViewer>
+
+    <Button Grid.Row="2" Margin="0,10,0,0" Command="{Binding SaveBeneficiaryCommand}">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Save" FontSize="16" Margin="0,0,10,0"></TextBlock>
+        <iconPacks:PackIconFontAwesome Kind="UserCheckSolid" Width="24" Height="24"/>
+      </StackPanel>
+    </Button>
+    <Button Grid.Row="2" Grid.Column="1" Margin="0,10,0,0" Command="{Binding CancelBeneficiaryCommand}">
+      <StackPanel Orientation="Horizontal">
+        <TextBlock Text="Cancel" FontSize="16" Margin="0,0,10,0"></TextBlock>
+        <iconPacks:PackIconFontAwesome Kind="BanSolid" Width="24" Height="24"/>
+      </StackPanel>
+    </Button>
+  </Grid>
+</UserControl>
+
