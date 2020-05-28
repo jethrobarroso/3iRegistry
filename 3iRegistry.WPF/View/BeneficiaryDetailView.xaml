@@ -311,14 +311,15 @@
               <WrapPanel Grid.Row="2" Grid.ColumnSpan="4" Margin="0,5,0,0" HorizontalAlignment="Center">
                 <DockPanel>
                   <Label Content="Total Household Members" Style="{StaticResource counterLabel}"/>
-                  <Controls:NumericUpDown x:Name="numTotalHousehold" Width="100" HorizontalAlignment="Right"
+                  <Controls:NumericUpDown x:Name="numTotalHousehold" Width="100" HorizontalAlignment="Right" ValueChanged="AdjustUnemployed"
                                           Minimum="{Binding CopiedBeneficiary.MemberCountExclAdds, Mode=TwoWay}"
                                           Value="{Binding CopiedBeneficiary.HouseholdMemberCount, Mode=TwoWay, 
                                                   UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>
                 </DockPanel>
                 <DockPanel>
                   <Label Content="Unemployed members" Style="{StaticResource counterLabel}"/>
-                  <Controls:NumericUpDown Width="100" HorizontalAlignment="Right" Minimum="0" 
+                  <Controls:NumericUpDown Name="numUnemployed"
+                                          Width="100" HorizontalAlignment="Right" Minimum="0" 
                                           Maximum="{Binding CopiedBeneficiary.HouseholdMemberCount}"
                                           Value="{Binding CopiedBeneficiary.UnemployedCount, Mode=TwoWay, 
                                                   UpdateSourceTrigger=PropertyChanged, ValidatesOnDataErrors=True}"/>

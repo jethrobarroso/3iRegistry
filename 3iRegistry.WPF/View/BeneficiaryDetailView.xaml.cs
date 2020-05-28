@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MahApps.Metro.Controls;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Windows;
@@ -21,6 +22,18 @@ namespace _3iRegistry.WPF.View
         public BeneficiaryDetailView()
         {
             InitializeComponent();
+        }
+
+        private void AdjustUnemployed(object sender, RoutedPropertyChangedEventArgs<double?> e)
+        {
+            var learnersCount = listboxLeaners.Items.Count;
+            var householdUnemployedDiff = numTotalHousehold.Value - learnersCount;
+
+            if (numUnemployed.Value > householdUnemployedDiff)
+            {
+                numUnemployed.Value = householdUnemployedDiff;
+                numUnemployed.GetBindingExpression(NumericUpDown.ValueProperty).UpdateSource();
+            }
         }
     }
 }

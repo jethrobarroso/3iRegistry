@@ -119,10 +119,10 @@ namespace _3iRegistry.Core
             set 
             { 
                 SetProperty(ref _householdMemberCount, value);
-                if (_unemployedCount > value - _learners.Count)
-                {
-                    UnemployedCount = value - _learners.Count;
-                }  
+                //if (_unemployedCount > _householdMemberCount)
+                //{
+                //    UnemployedCount = value - _learners.Count;
+                //}  
             }
         }
 
