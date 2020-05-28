@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace _3iRegistry.DAL
 {
@@ -108,8 +109,13 @@ namespace _3iRegistry.DAL
         private async Task LoadBeneficiariesCSV()
         {
             string file = Directory.GetCurrentDirectory() + @"\Data\DataStore.csv";
-            SpreadsheetReader reader = new SpreadsheetReader(file);
             _beneficieries = new List<Beneficiary>();
+
+            if (!File.Exists(file))
+                SpreadsheetWriter.CreateBlankIfExistsCSV<Beneficiary>(file);
+
+            SpreadsheetReader reader = new SpreadsheetReader(file);
+            
             try
             {
                 await Task.Factory.StartNew(() => _beneficieries = reader.ReadBeneficiariesFromCSV().ToList());

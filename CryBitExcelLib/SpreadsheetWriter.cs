@@ -36,5 +36,23 @@ namespace CryBitExcelLib
                 File.Move(tempFileName, sfd.FileName, true);
             }
         }
+
+        public static void CreateBlankIfExistsCSV<T>(string filePath)
+        {
+            var directory = Path.GetDirectoryName(filePath);
+            var data = new List<T>();
+            if(!File.Exists(filePath))
+            {
+                if (!Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
+                using (StreamWriter writer = new StreamWriter(filePath, false))
+                using (CsvWriter csv = new CsvWriter(writer, CultureInfo.InvariantCulture))
+                {
+                    csv.Configuration.RegisterClassMap<BeneficiaryMap>();
+                    csv.WriteRecords(data);
+                }
+            } 
+        }
     }
 }
