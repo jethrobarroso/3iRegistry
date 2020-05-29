@@ -36,10 +36,9 @@ namespace _3iRegistry.Core.Tools
                 if (DateTime.TryParse(entityValues[3].Trim(), out DateTime dob))
                     learner.DOB = dob;
                 else
-                    throw new ExcelImportException()
+                    throw new CoreEnumConverterException($"Not a correct date format")
                     {
-                        ErrorInfo = $"Not a correct date format",
-                        CellData = entityValues[4].Trim()
+                        EnumValue = entityValues[4].Trim()
                     };
 
                 list.Add(learner);

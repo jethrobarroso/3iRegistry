@@ -2,6 +2,6 @@
 {
     public enum MemberOperation
     {
-        Add, Delete, Update
+        Add, Delete, Update, Import, Export
     }
 }

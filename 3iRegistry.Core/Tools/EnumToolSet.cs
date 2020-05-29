@@ -14,24 +14,29 @@ namespace _3iRegistry.Core.Tools
         {
             TEnum convertedVal = default;
             bool found = false;
+            string errorList = string.Empty;
+            string enumDescription = string.Empty;
 
             foreach (TEnum item in (TEnum[])Enum.GetValues(typeof(TEnum)))
             {
-                if (value.ToLower() == item.GetDescription().ToLower())
+                enumDescription = item.GetDescription();
+                if ((value.ToLower() == item.GetDescription().ToLower()) ||
+                    (value.ToLower() == item.ToString().ToLower()))
                 {
                     convertedVal = item;
                     found = true;
                 }
+                errorList += $"- {enumDescription}\n";
             }
 
             if (!found)
             {
-                var exception = new ExcelImportException()
+                string tempValue = string.IsNullOrEmpty(value) ? "<EMPTY>" : value;
+                string message = $"The input \"{tempValue}\" " +
+                    $"does not match any of the following values:\n{errorList.Trim()}";
+                throw new CoreEnumConverterException(message)
                 {
-                    ErrorInfo = $"No matches on any of the accepted items:\n" +
-                    $"Cohabiting\nEngaged\nMarried in community of property\n" +
-                    $"Married out of community of property",
-                    CellData = value
+                    EnumValue = value
                 };
             }
             return convertedVal;

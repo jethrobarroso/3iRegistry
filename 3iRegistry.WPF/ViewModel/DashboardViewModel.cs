@@ -38,6 +38,7 @@ namespace _3iRegistry.WPF.ViewModel
             Messenger.Default.Register<DoneSignal>(this, SaveBeneficiary);
             Messenger.Default.Register<DeleteMessage>(this, DeleteBeneficiary, DeleteMessage.SyncContext);
             Messenger.Default.Register<object>(this, ExportBeneficiaries, NavigationToken.ExportToken);
+            Messenger.Default.Register<ObservableCollection<Beneficiary>>(this, ImportReceived, MemberOperation.Import);
 
             dialogSettings = new MetroDialogSettings()
             {
@@ -99,18 +100,18 @@ namespace _3iRegistry.WPF.ViewModel
                 $"Are you sure you want to delete {SelectedBeneficiary.FirstName} {SelectedBeneficiary.LastName}?",
                 MessageDialogStyle.AffirmativeAndNegative,
                 dialogSettings);
-
-            CSVBackupSystem.Backup(Beneficiaries);
             
             if(result == MessageDialogResult.Affirmative)
                 Beneficiaries.Remove(SelectedBeneficiary);
+
+            CSVBackupSystem.Backup(Beneficiaries);
         }
 
         private void ExportBeneficiaries(object obj)
         {
             try
             {
-                SpreadsheetWriter.GenerateCSV(Beneficiaries);
+                CustomCsvWriter.GenerateCSV(Beneficiaries);
             }
             catch(Exception ex)
             {
@@ -126,8 +127,23 @@ namespace _3iRegistry.WPF.ViewModel
         /// <returns></returns>
         private async Task LoadBeneficiaries()
         {
-            var list = await _beneficiaryRepository.GetBeneficiaries();
-            Beneficiaries = list.ToObservableCollection();
+            try
+            {
+                var list = await _beneficiaryRepository.GetBeneficiaries();
+                Beneficiaries = list.ToObservableCollection();
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Read Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                Beneficiaries = new ObservableCollection<Beneficiary>();
+            }
+            
+        }
+
+        private void ImportReceived(ObservableCollection<Beneficiary> list)
+        {
+            Beneficiaries = list;
+            CSVBackupSystem.Backup(Beneficiaries);
         }
     }
 }

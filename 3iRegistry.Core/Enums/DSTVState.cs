@@ -7,11 +7,11 @@ namespace _3iRegistry.Core
 {
     public enum DSTVState
     {
+        [Description("None")]
+        None,
         [Description("New Install")]
         New_Install,
         [Description("Transferred")]
-        Transferred,
-        [Description("None")]
-        None
+        Transferred
     }
 }

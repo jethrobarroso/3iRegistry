@@ -38,9 +38,9 @@
                             Binding="{Binding Path=Learners, Converter={StaticResource localLearnerConverter}}" />
         <DataGridTextColumn Header="DSTV" Binding="{Binding Path=DSTV}" />
         <DataGridTextColumn Header="Total Household Members" Binding="{Binding Path=HouseholdMemberCount}" />
-        <DataGridTextColumn Header="Unemployed" Binding="{Binding Path=UnemployedCount}" />
+        <DataGridTextColumn Header="Unemployed Count" Binding="{Binding Path=UnemployedCount}" />
         <DataGridTextColumn Header="Grant Count" Binding="{Binding Path=GrantCount}" />
-        <DataGridTextColumn Header="Chronic Illnesses" Binding="{Binding Path=IllnessCount}" />
+        <DataGridTextColumn Header="Chronic Illness Count" Binding="{Binding Path=IllnessCount}" />
         <DataGridTextColumn Header="Chronic Illness Description" Binding="{Binding Path=IllnessDescription}" />
         <DataGridTextColumn Header="Grant Description" Binding="{Binding Path=GrantDescription}" />
         <DataGridTextColumn Header="Notes" Binding="{Binding Path=Notes}" />

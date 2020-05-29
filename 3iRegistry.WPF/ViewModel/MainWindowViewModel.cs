@@ -1,14 +1,20 @@
 ﻿using _3iRegistry.Core;
+using _3iRegistry.Core.Tools;
 using _3iRegistry.WPF.Extensions;
 using _3iRegistry.WPF.Messages;
 using _3iRegistry.WPF.Services;
 using _3iRegistry.WPF.View;
+using CryBitExcelLib;
+using CryBitExcelLib.Exceptions;
 using CryBitMVVMLib;
 using MahApps.Metro.Controls.Dialogs;
+using Microsoft.Win32;
 using System;
+using System.Buffers;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -53,6 +59,7 @@ namespace _3iRegistry.WPF.ViewModel
         public ICommand AddEditBeneficiaryCommand { get; set; }
         public ICommand DeleteBeneficiaryCommand { get; set; }
         public ICommand ExportBeneficiaryCommand { get; set; }
+        public ICommand ImportBeneficiaryCommand { get; set; }
         #endregion
 
         #region Binding properties
@@ -83,6 +90,42 @@ namespace _3iRegistry.WPF.ViewModel
         #endregion
 
         #region Command callbacks
+        private void ImportBeneficiary(object obj)
+        {
+            ObservableCollection<Beneficiary> list;
+            string filePath = string.Empty;
+
+            OpenFileDialog ofd = new OpenFileDialog()
+            {
+                Filter = "CSV Files (*.csv)|*.csv",
+                InitialDirectory = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)
+            };
+
+            if (ofd.ShowDialog() == true)
+                filePath = ofd.FileName;
+
+            if (string.IsNullOrEmpty(filePath))
+                return;
+
+            try
+            {
+                list = CustomCsvReader.ImportFromCSV(filePath).ToObservableCollection();
+                Messenger.Default.Send(list, MemberOperation.Import);
+            }
+            catch (CoreEnumConverterException ex)
+            {
+                MessageBox.Show(ex.Message, $"CSV Read Error ({ex.ErrorOriginatorType.Name})", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (CsvImportException ex)
+            {
+                MessageBox.Show(ex.Message, $"CSV Read Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+
         private void AddEditBeneficiary(object param)
         {
             if (param.ToString() == AddParam)
@@ -162,6 +205,7 @@ namespace _3iRegistry.WPF.ViewModel
             AddEditBeneficiaryCommand = new RelayCommand(AddEditBeneficiary, CanAddEditBeneficiary);
             DeleteBeneficiaryCommand = new RelayCommand(DeleteBeneficiary, o => CanAddEditBeneficiary(EditParam));
             ExportBeneficiaryCommand = new RelayCommand(ExportBeneficiary, CanExportBeneficiary);
+            ImportBeneficiaryCommand = new RelayCommand(ImportBeneficiary);
         }
         #endregion
     }

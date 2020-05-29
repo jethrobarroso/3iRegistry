@@ -12,7 +12,7 @@ using System.Windows;
 
 namespace CryBitExcelLib
 {
-    public static class SpreadsheetWriter
+    public static class CustomCsvWriter
     {
         public static void GenerateCSV<T>(IEnumerable<T> data)
         {

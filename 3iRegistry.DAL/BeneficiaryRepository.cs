@@ -86,44 +86,25 @@ namespace _3iRegistry.DAL
             return beneficiary;
         }
 
-        private async Task LoadBeneficiariesExcel()
-        {
-            ExcelReader excel = new ExcelReader(1);
-
-            try
-            {
-                await Task.Factory.StartNew(() => _beneficieries = excel.ReadBeneficiaries());
-            }
-
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            finally
-            {
-                excel.Dispose();
-            }
-
-        }
-
         private async Task LoadBeneficiariesCSV()
         {
             string file = Directory.GetCurrentDirectory() + @"\Data\DataStore.csv";
             _beneficieries = new List<Beneficiary>();
 
             if (!File.Exists(file))
-                SpreadsheetWriter.CreateBlankIfExistsCSV<Beneficiary>(file);
+                CustomCsvWriter.CreateBlankIfExistsCSV<Beneficiary>(file);
 
-            SpreadsheetReader reader = new SpreadsheetReader(file);
+            CustomCsvReader reader = new CustomCsvReader(file);
             
-            try
-            {
+            //try
+            //{
                 await Task.Factory.StartNew(() => _beneficieries = reader.ReadBeneficiariesFromCSV().ToList());
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+            //}
+            //catch (Exception ex)
+            //{
+
+            //    MessageBox.Show(ex.Message);
+            //}
         }
 
         public string AddSchool(string school)
