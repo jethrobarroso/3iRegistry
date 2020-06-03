@@ -25,9 +25,11 @@ namespace _3iRegistry.DAL
         private List<Beneficiary> _beneficieries;
         private List<string> _schools;
         private List<string> _settlements;
+        private List<User> _users;
 
         public BeneficiaryRepository()
         {
+            LoadUsers();
             LoadSchools();
             LoadSettlements();
         }
@@ -95,10 +97,10 @@ namespace _3iRegistry.DAL
                 CustomCsvWriter.CreateBlankIfExistsCSV<Beneficiary>(file);
 
             CustomCsvReader reader = new CustomCsvReader(file);
-            
+
             //try
             //{
-                await Task.Factory.StartNew(() => _beneficieries = reader.ReadBeneficiariesFromCSV().ToList());
+            await Task.Factory.StartNew(() => _beneficieries = reader.ReadBeneficiariesFromCSV().ToList());
             //}
             //catch (Exception ex)
             //{
@@ -129,6 +131,11 @@ namespace _3iRegistry.DAL
         public List<string> GetSettlements()
         {
             return _settlements;
+        }
+
+        public IEnumerable<User> GetUsers()
+        {
+            return _users;
         }
 
         private void LoadSettlements()
@@ -176,6 +183,15 @@ namespace _3iRegistry.DAL
                 "Khutsong South Primary",
                 "Itumeleng Primary",
                 "Denzel Primary",
+            };
+        }
+
+        private void LoadUsers()
+        {
+            _users = new List<User>()
+            {
+                new User(){ Username = "sysadmin", Password = "Q@zw1234", UserType = UserType.Admin},
+                new User(){ Username = "visitor", Password = "3iTempUser1!", UserType = UserType.Visitor}
             };
         }
 

@@ -7,12 +7,12 @@ namespace _3iRegistry.WPF.Messages
     /// This Class acts as a global singleton container for the different views
     /// in order to access the same beneficiary details and state (edit|add mode)
     /// </summary>
-    public class BeneficiaryContainer
+    public class GlobalContainer
     {
         private static readonly object locker = new object();
-        private static BeneficiaryContainer _instance;
+        private static GlobalContainer _instance;
 
-        public static BeneficiaryContainer Instance
+        public static GlobalContainer Instance
         {
             get
             {
@@ -21,7 +21,7 @@ namespace _3iRegistry.WPF.Messages
                     lock (locker)
                     {
                         if (_instance == null)
-                            _instance = new BeneficiaryContainer();
+                            _instance = new GlobalContainer();
                     }
                 }
                 return _instance;
@@ -29,7 +29,7 @@ namespace _3iRegistry.WPF.Messages
         }
 
         // Enforcy access to object via getter providing only a single instance
-        private BeneficiaryContainer() { }
+        private GlobalContainer() { }
 
         public Beneficiary SelectedBeneficiary { get; set; }
         public ObservableCollection<Partner> SelectedPartners { get; set; }
@@ -40,5 +40,7 @@ namespace _3iRegistry.WPF.Messages
         public bool IsEditLearner { get; set; } = false;
         public bool IsEditFurniture { get; set; } = false;
         public bool IsCanceled { get; set; } = false;
+        
+        public UserType UserLogingType { get; set; }
     }
 }

@@ -10,10 +10,13 @@
                       xmlns:vm="clr-namespace:_3iRegistry.WPF.ViewModel"
                       xmlns:Dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       Dialog:DialogParticipation.Register="{Binding}"
-                      mc:Ignorable="d" ResizeMode="CanResizeWithGrip"
+                      mc:Ignorable="d" ResizeMode="CanResizeWithGrip" 
+                      OverlayFadeIn="{StaticResource OverlayFastSemiFadeIn}"
+                      OverlayFadeOut="{StaticResource OverlayFastSemiFadeOut}"
                       DataContext="{Binding Source={StaticResource viewModelLocator}, Path=MainWindowViewModel}"
-                      Title="3i Developments RDP Beneficiary Tool " 
+                      Title="3i Developments RDP Beneficiary Assistant" 
                       Height="700" Width="1000" MinHeight="700" MinWidth="900">
+  
 
   <i:Interaction.Triggers>
     <i:EventTrigger EventName="Loaded">
@@ -41,68 +44,82 @@
       <ColumnDefinition Width="auto"/>
       <ColumnDefinition/>
     </Grid.ColumnDefinitions>
-    <StackPanel Background="{StaticResource MahApps.Brushes.Button.Flat.Background}">
-      <Rectangle Height="22"></Rectangle>
+    <Grid>
+      <StackPanel Background="{StaticResource MahApps.Brushes.Button.Flat.Background}">
+        <Rectangle Height="22"></Rectangle>
 
-      <Button Width="100" Height="100" Style="{StaticResource MahApps.Styles.Button.Flat}"
+        <Button Width="100" Height="70" Style="{StaticResource MahApps.Styles.Button.Flat}"
               Command="{Binding ShowDashBoardCommand}">
-        <StackPanel Orientation="Vertical">
-          <iconPacks:PackIconBoxIcons Kind="SolidDashboard" HorizontalAlignment="Center" 
+          <StackPanel Orientation="Vertical">
+            <iconPacks:PackIconBoxIcons Kind="SolidDashboard" HorizontalAlignment="Center" 
                                       Width="36" Height="36" />
-          <TextBlock Text="Dashboard" FontWeight="Bold" Margin="0,5,0,0"></TextBlock>
-        </StackPanel>
-      </Button>
-      <Button Width="100" Height="100" Style="{StaticResource MahApps.Styles.Button.Flat}"
+            <TextBlock Text="Dashboard" FontWeight="Bold" Margin="0,5,0,0"></TextBlock>
+          </StackPanel>
+        </Button>
+        <Button Width="100" Height="70" Style="{StaticResource MahApps.Styles.Button.Flat}"
               Command="{Binding AddEditBeneficiaryCommand}" CommandParameter="{Binding AddParam}"
               Visibility="{Binding IsDash, Converter={StaticResource crudButtonVisibleConverter}}">
-        <StackPanel>
-          <iconPacks:PackIconMaterial Kind="AccountPlus" HorizontalAlignment="Center"
+          <StackPanel>
+            <iconPacks:PackIconMaterial Kind="AccountPlus" HorizontalAlignment="Center"
                                       Width="36" Height="36"/>
-          <TextBlock Text="Add Beneficiery" TextWrapping="Wrap" TextAlignment="Center"
+            <TextBlock Text="Add Beneficiery" TextWrapping="Wrap" TextAlignment="Center"
                      FontWeight="Bold" Margin="0,5,0,0"></TextBlock>
-        </StackPanel>
-      </Button>
-      <Button Width="100" Height="100" Style="{StaticResource MahApps.Styles.Button.Flat}"
+          </StackPanel>
+        </Button>
+        <Button Width="100" Height="70" Style="{StaticResource MahApps.Styles.Button.Flat}"
               Command="{Binding AddEditBeneficiaryCommand}" CommandParameter="{Binding EditParam}"
               Visibility="{Binding IsDash, Converter={StaticResource crudButtonVisibleConverter}}">
-        <StackPanel>
-          <iconPacks:PackIconMaterial Kind="AccountEdit" HorizontalAlignment="Center"
+          <StackPanel>
+            <iconPacks:PackIconMaterial Kind="AccountEdit" HorizontalAlignment="Center"
                                       Width="36" Height="36"/>
-          <TextBlock Text="Edit Beneficiery" TextWrapping="Wrap" TextAlignment="Center"
+            <TextBlock Text="Edit Beneficiery" TextWrapping="Wrap" TextAlignment="Center"
                      FontWeight="Bold" Margin="0,5,0,0"></TextBlock>
-        </StackPanel>
-      </Button>
-      <Button Width="100" Height="100" Style="{StaticResource MahApps.Styles.Button.Flat}"
+          </StackPanel>
+        </Button>
+        <Button Width="100" Height="70" Style="{StaticResource MahApps.Styles.Button.Flat}"
               Command="{Binding DeleteBeneficiaryCommand}"
               Visibility="{Binding IsDash, Converter={StaticResource crudButtonVisibleConverter}}">
-        <StackPanel>
-          <iconPacks:PackIconMaterial Kind="DeleteForever" HorizontalAlignment="Center"
+          <StackPanel>
+            <iconPacks:PackIconMaterial Kind="DeleteForever" HorizontalAlignment="Center"
                                          Width="36" Height="36"/>
-          <TextBlock Text="Delete Beneficiary" TextWrapping="Wrap"  TextAlignment="Center"
+            <TextBlock Text="Delete Beneficiary" TextWrapping="Wrap"  TextAlignment="Center"
                      FontWeight="Bold" Margin="0,5,0,0"></TextBlock>
-        </StackPanel>
-      </Button>
-      <Button Style="{StaticResource MahApps.Styles.Button.Flat}" Width="100" Height="100" 
+          </StackPanel>
+        </Button>
+        <Button Style="{StaticResource MahApps.Styles.Button.Flat}" Width="100" Height="70"
               Command="{Binding ImportBeneficiaryCommand}"
               Visibility="{Binding IsDash, Converter={StaticResource crudButtonVisibleConverter}}">
-        <StackPanel>
-          <iconPacks:PackIconUnicons Kind="Import" HorizontalAlignment="Center"
+          <StackPanel>
+            <iconPacks:PackIconUnicons Kind="Import" HorizontalAlignment="Center"
                                          Width="36" Height="36"/>
-          <TextBlock Text="Import Speadsheet" TextWrapping="Wrap" TextAlignment="Center"
+            <TextBlock Text="Import Speadsheet" TextWrapping="Wrap" TextAlignment="Center"
                      FontWeight="Bold" Margin="0,5,0,0"></TextBlock>
-        </StackPanel>
-      </Button>
-      <Button Style="{StaticResource MahApps.Styles.Button.Flat}" Width="100" Height="100"
+          </StackPanel>
+        </Button>
+        <Button Style="{StaticResource MahApps.Styles.Button.Flat}" Width="100" Height="70"
               Command="{Binding ExportBeneficiaryCommand}"
               Visibility="{Binding IsDash, Converter={StaticResource crudButtonVisibleConverter}}">
-        <StackPanel>
-          <iconPacks:PackIconFontAwesome Kind="FileCsvSolid" HorizontalAlignment="Center"
+          <StackPanel>
+            <iconPacks:PackIconFontAwesome Kind="FileCsvSolid" HorizontalAlignment="Center"
                                          Width="36" Height="36"/>
-          <TextBlock Text="Export CSV" FontWeight="Bold" Margin="0,5,0,0"></TextBlock>
+            <TextBlock Text="Export CSV" FontWeight="Bold" Margin="0,5,0,0"></TextBlock>
+          </StackPanel>
+        </Button>
+      </StackPanel>
+      <Button Style="{StaticResource MahApps.Styles.Button.Flat}" Width="100" Height="70"
+              Command="{Binding LogoutCommand}" VerticalAlignment="Bottom"
+              Visibility="{Binding IsDash, Converter={StaticResource crudButtonVisibleConverter}}">
+        <StackPanel>
+          <iconPacks:PackIconBoxIcons Kind="RegularLogOut" HorizontalAlignment="Center"
+                                         Width="36" Height="36"/>
+          <TextBlock Text="Logout" FontWeight="Bold" Margin="0,5,0,0"></TextBlock>
         </StackPanel>
       </Button>
-    </StackPanel>
+    </Grid>
 
-    <Frame Grid.Column="1" Content="{Binding ActivePage}" NavigationUIVisibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
+    <UserControl Grid.Column="1" Content="{Binding ActivePage}"></UserControl>
+    <!--<Frame Grid.Column="1" Content="{Binding ActivePage}" 
+           NavigationUIVisibility="Hidden" Focusable="False"
+           ScrollViewer.VerticalScrollBarVisibility="Disabled"/>-->
   </Grid>
 </Controls:MetroWindow>

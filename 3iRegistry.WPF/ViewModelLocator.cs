@@ -21,7 +21,9 @@ namespace _3iRegistry.WPF
             {
                 var pageService = new PageService();
                 var repository = new BeneficiaryRepository();
+                var tokenFinder = new FdTokenFinder();
 
+                LoginViewModel = new LoginViewModel(pageService, tokenFinder, repository);
                 LearnerDetailViewModel = new LearnerDetailViewModel(pageService, repository);
                 FurnitureDetailViewModel = new FurnitureDetailViewModel(pageService);
                 PartnerDetailViewModel = new PartnerDetailViewModel(pageService);
@@ -31,6 +33,7 @@ namespace _3iRegistry.WPF
             }
             else
             {
+                LoginViewModel = App.ServiceProvider.GetRequiredService<LoginViewModel>();
                 LearnerDetailViewModel = App.ServiceProvider.GetRequiredService<LearnerDetailViewModel>();
                 FurnitureDetailViewModel = App.ServiceProvider.GetRequiredService<FurnitureDetailViewModel>();
                 PartnerDetailViewModel = App.ServiceProvider.GetRequiredService<PartnerDetailViewModel>();
@@ -40,6 +43,7 @@ namespace _3iRegistry.WPF
             }
         }
 
+        public static LoginViewModel LoginViewModel { get; }
         public static LearnerDetailViewModel LearnerDetailViewModel { get; }
         public static FurnitureDetailViewModel FurnitureDetailViewModel { get; }
         public static PartnerDetailViewModel PartnerDetailViewModel { get; }

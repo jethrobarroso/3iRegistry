@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 
@@ -13,32 +14,64 @@ namespace _3iRegistry.WPF.Services
 {
     public class PageService : IPageService
     {
+        Window _mainWindow = null;
+        Window _loginWindow = null;
+
         #region Page Accessors
-        public UserControl GetDashboardPage()
+        public UserControl ShowDashboardView()
         {
             return App.ServiceProvider.GetRequiredService<DashboardView>();
         }
 
-        public UserControl GetBeneficiaryDetailsPage()
+        public UserControl ShowBeneficiaryDetailsView()
         {
             var page = App.ServiceProvider.GetRequiredService<BeneficiaryDetailView>();
             page.scrollMain.ScrollToTop();
             return page;
         }
 
-        public PartnerDetailView GetPartnerDetailDialog()
+        public PartnerDetailView ShowPartnerDetailDialog()
         {
             return App.ServiceProvider.GetRequiredService<PartnerDetailView>();
         }
 
-        public FurnitureDetailView GetFurnitureDetailDialog()
+        public FurnitureDetailView ShowFurnitureDetailDialog()
         {
             return App.ServiceProvider.GetRequiredService<FurnitureDetailView>();
         }
 
-        public LearnerDetailView GetLearnerDetailDialog()
+        public LearnerDetailView ShowLearnerDetailDialog()
         {
             return App.ServiceProvider.GetRequiredService<LearnerDetailView>();
+        }
+
+        public void ShowLoginView()
+        {
+            if (_loginWindow == null)
+                _loginWindow = new LoginView();
+
+            _loginWindow.Show();
+
+            if (_mainWindow != null)
+            {
+                _mainWindow.Close();
+                _mainWindow = null;
+            }
+        }
+
+        public void ShowMainView()
+        {
+            if(_mainWindow == null)
+                _mainWindow = new MainWindowView();
+
+            _mainWindow.Show();
+
+            if (_loginWindow != null)
+            {
+                _loginWindow.Close();
+                _loginWindow = null;
+            }
+                
         }
         #endregion
     }

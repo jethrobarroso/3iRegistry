@@ -46,11 +46,12 @@ namespace _3iRegistry.WPF
             base.OnStartup(e);
             await _host.StartAsync();
 
-            var appView = _host.Services.GetRequiredService<MainWindowView>();
-            appView.DataContext = _host.Services.GetRequiredService<MainWindowViewModel>();
-            appView.Show();
+            //var appView = _host.Services.GetRequiredService<MainWindowView>();
+            //appView.DataContext = _host.Services.GetRequiredService<MainWindowViewModel>();
+            //appView.Show();
 
-
+            //_host.Services.GetRequiredService<LoginView>().Show();
+             _host.Services.GetRequiredService<IPageService>().ShowLoginView();
         }
 
         protected override async void OnExit(ExitEventArgs e)
@@ -67,8 +68,10 @@ namespace _3iRegistry.WPF
         {
             services.AddSingleton<IPageService, PageService>();
             services.AddSingleton<IBeneficiaryRepository, BeneficiaryRepository>();
+            services.AddSingleton<ITokenFinder, FdTokenFinder>();
 
             // Register all ViewModels
+            services.AddSingleton<LoginViewModel>();
             services.AddSingleton<LearnerDetailViewModel>();
             services.AddSingleton<PartnerDetailViewModel>();
             services.AddSingleton<FurnitureDetailViewModel>();
@@ -77,12 +80,13 @@ namespace _3iRegistry.WPF
             services.AddSingleton<MainWindowViewModel>();
 
             // Register all Views
+            //services.AddTransient<LoginView>();
             services.AddSingleton<LearnerDetailView>();
             services.AddSingleton<PartnerDetailView>();
             services.AddSingleton<FurnitureDetailView>();
             services.AddSingleton<BeneficiaryDetailView>();
             services.AddSingleton<DashboardView>();
-            services.AddSingleton<MainWindowView>();
+            //services.AddTransient<MainWindowView>();
 
         }
     }

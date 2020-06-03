@@ -23,7 +23,22 @@
       </Trigger>
     </ControlTemplate.Triggers>
   </ControlTemplate>
-  
+
+  <Storyboard x:Key="OverlayFastSemiFadeIn" 
+             AccelerationRatio="0" 
+             BeginTime="0:0:0" 
+             SpeedRatio="5" 
+             Storyboard.TargetProperty="Opacity">
+    <DoubleAnimation To="0" />
+  </Storyboard>
+  <Storyboard x:Key="OverlayFastSemiFadeOut" 
+             AccelerationRatio="0" 
+             BeginTime="0:0:0" 
+             SpeedRatio="5" 
+             Storyboard.TargetProperty="Opacity">
+    <DoubleAnimation To="0.0" />
+  </Storyboard>
+
   <Style x:Key="ScrollableListBox" TargetType="{x:Type ListBox}">
     <Setter Property="Background" Value="{StaticResource ListBox.Static.Background}"/>
     <Setter Property="BorderBrush" Value="{StaticResource ListBox.Static.Border}"/>

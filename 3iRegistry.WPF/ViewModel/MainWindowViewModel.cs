@@ -30,7 +30,7 @@ namespace _3iRegistry.WPF.ViewModel
         private readonly IPageService _pageService;
         private bool _isDash;
         private UserControl _activePage;
-        private BeneficiaryContainer _container;
+        private GlobalContainer _container;
         private PageTransitionMessage _stateChange = new PageTransitionMessage();
         private IDialogCoordinator _coordinator;
         private MetroDialogSettings _dialogSettings;
@@ -39,7 +39,7 @@ namespace _3iRegistry.WPF.ViewModel
         public MainWindowViewModel(IPageService pageService)
         {
             _pageService = pageService;
-            _container = BeneficiaryContainer.Instance;
+            _container = GlobalContainer.Instance;
             Messenger.Default.Register<DoneSignal>(this, OnSaveMessageReceived);
 
             _coordinator = DialogCoordinator.Instance;
@@ -60,6 +60,7 @@ namespace _3iRegistry.WPF.ViewModel
         public ICommand DeleteBeneficiaryCommand { get; set; }
         public ICommand ExportBeneficiaryCommand { get; set; }
         public ICommand ImportBeneficiaryCommand { get; set; }
+        public ICommand LogoutCommand { get; set; }
         #endregion
 
         #region Binding properties
@@ -133,7 +134,7 @@ namespace _3iRegistry.WPF.ViewModel
             else
                 _container.IsEditMode = true;
 
-            ActivePage = _pageService.GetBeneficiaryDetailsPage();
+            ActivePage = _pageService.ShowBeneficiaryDetailsView();
             Messenger.Default.Send<PageTransitionMessage>(_stateChange);
             IsDash = false;
         }
@@ -153,7 +154,7 @@ namespace _3iRegistry.WPF.ViewModel
         {
             if(ActivePage == null)
             {
-                ActivePage = _pageService.GetDashboardPage();
+                ActivePage = _pageService.ShowDashboardView();
                 IsDash = true;
             }
             else if (!IsDash)
@@ -165,7 +166,7 @@ namespace _3iRegistry.WPF.ViewModel
 
                 if (result == MessageDialogResult.Affirmative)
                 {
-                    ActivePage = _pageService.GetDashboardPage();
+                    ActivePage = _pageService.ShowDashboardView();
                     IsDash = true;
                 }      
             }
@@ -173,7 +174,7 @@ namespace _3iRegistry.WPF.ViewModel
 
         private void OnSaveMessageReceived(DoneSignal message)
         {
-            ActivePage = _pageService.GetDashboardPage();
+            ActivePage = _pageService.ShowDashboardView();
         }
 
         private void DeleteBeneficiary(object obj)
@@ -190,12 +191,21 @@ namespace _3iRegistry.WPF.ViewModel
         {
             return true;
         }
+
+        private async void Logout(object obj)
+        {
+            var result = await _coordinator.ShowMessageAsync(this, "Logout", "Are you sure you want to logout?",
+                MessageDialogStyle.AffirmativeAndNegative, _dialogSettings);
+
+            if(result == MessageDialogResult.Affirmative)
+                _pageService.ShowLoginView();
+        }
         #endregion
 
         #region Initilializers
         public void InitializePage()
         {
-            ActivePage = _pageService.GetDashboardPage();
+            ActivePage = _pageService.ShowDashboardView();
             IsDash = true;
         }
 
@@ -206,6 +216,7 @@ namespace _3iRegistry.WPF.ViewModel
             DeleteBeneficiaryCommand = new RelayCommand(DeleteBeneficiary, o => CanAddEditBeneficiary(EditParam));
             ExportBeneficiaryCommand = new RelayCommand(ExportBeneficiary, CanExportBeneficiary);
             ImportBeneficiaryCommand = new RelayCommand(ImportBeneficiary);
+            LogoutCommand = new RelayCommand(Logout);
         }
         #endregion
     }

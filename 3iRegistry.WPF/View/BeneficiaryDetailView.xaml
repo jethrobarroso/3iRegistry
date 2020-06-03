@@ -76,14 +76,16 @@
 
               <Label Template="{StaticResource requiredLable}" 
                      Grid.Row="0" Content="First Name" Margin="0,5,0,0"></Label>
-              <TextBox x:Name="txtFirstName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,5,0,0"  
+              <TextBox x:Name="txtFirstName" Grid.Row="0" Grid.Column="1" 
+                       Grid.ColumnSpan="3" Margin="0,5,0,0" 
                        Style="{StaticResource ValidateTextBox}"
                        Text="{Binding CopiedBeneficiary.FirstName, UpdateSourceTrigger=PropertyChanged,
                               ValidatesOnDataErrors=True}"></TextBox>
 
               <Label Template="{StaticResource requiredLable}" 
                      Grid.Row="1" Content="Last Name" Margin="0,5,0,0"></Label>
-              <TextBox x:Name="txtLastName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Margin="0,5,0,0"  
+              <TextBox x:Name="txtLastName" Grid.Row="1" Grid.Column="1" 
+                       Grid.ColumnSpan="3" Margin="0,5,0,0"  
                        Style="{StaticResource ValidateTextBox}"
                        Text="{Binding CopiedBeneficiary.LastName, UpdateSourceTrigger=PropertyChanged,
                               ValidatesOnDataErrors=True}"></TextBox>
@@ -91,7 +93,7 @@
               <Label Template="{StaticResource requiredLable}" 
                      Grid.Row="2" Content="ID Number" Margin="0,5,0,0"></Label>
               <TextBox x:Name="txtId" Grid.Row="2" Grid.Column="1" Margin="0,5,0,0" 
-                       Style="{StaticResource ValidateTextBox}"
+                       Style="{StaticResource ValidateTextBox}" IsEnabled="{Binding IsAdmin}"
                        Text="{Binding CopiedBeneficiary.PersonId, ValidatesOnDataErrors=True,
                               UpdateSourceTrigger=PropertyChanged}"></TextBox>
 
@@ -194,21 +196,24 @@
 
               <Label Template="{StaticResource requiredLable}"
                      Grid.Row="0" Content="Project" Margin="0,5,0,0"></Label>
-              <TextBox x:Name="textboxProject" Grid.Row="0" Grid.Column="1" Margin="0,5,0,0"
+              <TextBox x:Name="textboxProject" Grid.Row="0" Grid.Column="1" 
+                       IsEnabled="{Binding IsAdmin}" Margin="0,5,0,0"
                        Style="{StaticResource ValidateTextBox}"
                        Text="{Binding CopiedBeneficiary.Hop.Project, UpdateSourceTrigger=PropertyChanged,
                               ValidatesOnDataErrors=True}" />
 
               <Label Template="{StaticResource requiredLable}"
                      Grid.Row="1" Content="Block" Margin="0,5,0,0"></Label>
-              <TextBox x:Name="textboxBlock" Grid.Row="1" Grid.Column="1" Margin="0,5,0,0"
+              <TextBox x:Name="textboxBlock" Grid.Row="1" IsEnabled="{Binding IsAdmin}"
+                       Grid.Column="1" Margin="0,5,0,0"
                        Style="{StaticResource ValidateTextBox}"
                        Text="{Binding CopiedBeneficiary.Hop.Block, UpdateSourceTrigger=PropertyChanged,
                               ValidatesOnDataErrors=True}" />
 
               <Label Template="{StaticResource requiredLable}"
                      Grid.Row="2" Content="Unit" Margin="0,5,0,0"></Label>
-              <TextBox x:Name="textboxUnit" Grid.Row="2" Grid.Column="1" Margin="0,5,0,0"
+              <TextBox x:Name="textboxUnit" Grid.Row="2" IsEnabled="{Binding IsAdmin}"
+                       Grid.Column="1" Margin="0,5,0,0"
                        Style="{StaticResource ValidateTextBox}"
                        Text="{Binding CopiedBeneficiary.Hop.Unit, UpdateSourceTrigger=PropertyChanged,
                               ValidatesOnDataErrors=True}" />
@@ -216,21 +221,21 @@
               <Label Template="{StaticResource requiredLable}" 
                      Grid.Row="0" Content="Electricity" Margin="0,5,0,0" Grid.Column="2"></Label>
               <TextBox x:Name="textboxElec" Grid.Row="0" Grid.Column="3" Margin="0,5,0,0"
-                       Style="{StaticResource ValidateTextBox}"
+                       IsEnabled="{Binding IsAdmin}" Style="{StaticResource ValidateTextBox}"
                        Text="{Binding CopiedBeneficiary.Hop.Elec, UpdateSourceTrigger=PropertyChanged,
                               ValidatesOnDataErrors=True}" />
 
               <Label Template="{StaticResource requiredLable}"
                      Grid.Row="1" Content="Water (E)" Margin="0,5,0,0" Grid.Column="2"></Label>
               <TextBox x:Name="textboxWaterE" Grid.Row="1" Grid.Column="3" Margin="0,5,0,0"
-                       Style="{StaticResource ValidateTextBox}"
+                       IsEnabled="{Binding IsAdmin}" Style="{StaticResource ValidateTextBox}"
                        Text="{Binding CopiedBeneficiary.Hop.WaterE, UpdateSourceTrigger=PropertyChanged,
                               ValidatesOnDataErrors=True}" />
 
               <Label Template="{StaticResource requiredLable}"
                      Grid.Row="2" Content="Water (M)" Margin="0,5,0,0" Grid.Column="2"></Label>
               <TextBox x:Name="textboxWaterM" Grid.Row="2" Grid.Column="3" Margin="0,5,0,0"
-                       Style="{StaticResource ValidateTextBox}"
+                       IsEnabled="{Binding IsAdmin}" Style="{StaticResource ValidateTextBox}"
                        Text="{Binding CopiedBeneficiary.Hop.WaterM, UpdateSourceTrigger=PropertyChanged,
                               ValidatesOnDataErrors=True}" />
             </Grid>

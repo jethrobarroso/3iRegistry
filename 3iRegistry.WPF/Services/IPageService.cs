@@ -5,10 +5,12 @@ namespace _3iRegistry.WPF.Services
 {
     public interface IPageService
     {
-        UserControl GetBeneficiaryDetailsPage();
-        UserControl GetDashboardPage();
-        PartnerDetailView GetPartnerDetailDialog();
-        FurnitureDetailView GetFurnitureDetailDialog();
-        LearnerDetailView GetLearnerDetailDialog();
+        UserControl ShowBeneficiaryDetailsView();
+        UserControl ShowDashboardView();
+        PartnerDetailView ShowPartnerDetailDialog();
+        FurnitureDetailView ShowFurnitureDetailDialog();
+        LearnerDetailView ShowLearnerDetailDialog();
+        void ShowMainView();
+        void ShowLoginView();
     }
 }

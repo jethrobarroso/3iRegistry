@@ -19,7 +19,7 @@ namespace _3iRegistry.WPF.ViewModel
         private readonly IBeneficiaryRepository _beneficiaryRepository;
         private Learner _selectedLearner;
         private Learner _copiedLearner;
-        private BeneficiaryContainer _container;
+        private GlobalContainer _container;
         private ObservableCollection<string> _schools;
         private bool _deletable;
 
@@ -27,7 +27,7 @@ namespace _3iRegistry.WPF.ViewModel
         {
             _pageService = pageService;
             _beneficiaryRepository = beneficiaryRepository;
-            _container = BeneficiaryContainer.Instance;
+            _container = GlobalContainer.Instance;
             Messenger.Default.Register<Learner>(this, OnMessageReceive);
 
             SaveCommand = new RelayCommand(Save, CanSave);
@@ -86,7 +86,7 @@ namespace _3iRegistry.WPF.ViewModel
 
         private void Done(object obj)
         {
-            DialogCoordinator.Instance.HideMetroDialogAsync(ViewModelLocator.BeneficiaryDetailViewModel, _pageService.GetLearnerDetailDialog());
+            DialogCoordinator.Instance.HideMetroDialogAsync(ViewModelLocator.BeneficiaryDetailViewModel, _pageService.ShowLearnerDetailDialog());
 
             // Release object to avoid breaking validation templates on GUI
             CopiedLearner = null;

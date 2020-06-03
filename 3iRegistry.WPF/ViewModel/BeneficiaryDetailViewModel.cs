@@ -37,6 +37,7 @@ namespace _3iRegistry.WPF.ViewModel
         private ObservableCollection<string> _settlements;
         private int _memberCountExclAdds;
         private bool _hasErrors;
+        private bool _isAdmin;
 
         private double _groupboxMaxWidth = 1000;
         private double _groupboxWidth = 700;
@@ -44,7 +45,7 @@ namespace _3iRegistry.WPF.ViewModel
         private IDialogCoordinator _dialogCoordinator;
         private CustomDialog _activeDialog;
         private DependencyObject designChecker = new DependencyObject();
-        private BeneficiaryContainer _container;
+        private GlobalContainer _container;
         private DoneSignal _doneSignal = new DoneSignal();
         private MetroDialogSettings dialogSettings;
         private readonly IBeneficiaryRepository _beneficiaryRepository;
@@ -53,7 +54,7 @@ namespace _3iRegistry.WPF.ViewModel
         public BeneficiaryDetailViewModel(IBeneficiaryRepository beneficiaryRepository)
         {
             _beneficiaryRepository = beneficiaryRepository;
-            _container = BeneficiaryContainer.Instance;
+            _container = GlobalContainer.Instance;
             _dialogCoordinator = DialogCoordinator.Instance;
 
             UpdatePageLayoutCommand = new RelayCommand(UpdateGroupboxes);
@@ -88,6 +89,12 @@ namespace _3iRegistry.WPF.ViewModel
 
         public string AddParam { get; } = "add";
         public string EditParam { get; } = "edit";
+
+        public bool IsAdmin
+        {
+            get { return _isAdmin; }
+            set { SetProperty(ref _isAdmin, value); }
+        }
 
         public int MemberCountExclAdds 
         {
@@ -243,7 +250,7 @@ namespace _3iRegistry.WPF.ViewModel
         {
             // Load dialog first before sending message. 
             // This will avoid breaking the validation template
-            _activeDialog = _pageService.GetLearnerDetailDialog();
+            _activeDialog = _pageService.ShowLearnerDetailDialog();
             await _dialogCoordinator.ShowMetroDialogAsync(this, _activeDialog);
 
             // If user clicks add or edit button
@@ -265,7 +272,7 @@ namespace _3iRegistry.WPF.ViewModel
         {
             // Load dialog first before sending message. 
             // This will avoid breaking the validation template
-            _activeDialog = _pageService.GetFurnitureDetailDialog();
+            _activeDialog = _pageService.ShowFurnitureDetailDialog();
             await _dialogCoordinator.ShowMetroDialogAsync(this, _activeDialog);
 
             // If user clicks add or edit button
@@ -285,7 +292,7 @@ namespace _3iRegistry.WPF.ViewModel
         {
             // Load dialog first before sending message. 
             // This will avoid breaking the validation template
-            _activeDialog = _pageService.GetPartnerDetailDialog();
+            _activeDialog = _pageService.ShowPartnerDetailDialog();
             await _dialogCoordinator.ShowMetroDialogAsync(this, _activeDialog);
 
             // If user clicks add or edit button
@@ -339,6 +346,11 @@ namespace _3iRegistry.WPF.ViewModel
             }
 
             //CopiedBeneficiary.EnableValidation = true;
+
+            if (_container.UserLogingType == UserType.Admin)
+                IsAdmin = true;
+            else
+                IsAdmin = false;
 
             Partners = new ObservableCollection<Partner>(CopiedBeneficiary.Partners);
             _container.SelectedPartners = Partners;

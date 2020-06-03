@@ -18,5 +18,6 @@ namespace _3iRegistry.DAL
         string AddSettlement(string settlement);
         List<string> GetSchools();
         List<string> GetSettlements();
+        IEnumerable<User> GetUsers();
     }
 }

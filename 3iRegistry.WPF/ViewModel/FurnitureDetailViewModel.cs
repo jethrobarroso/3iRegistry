@@ -16,13 +16,13 @@ namespace _3iRegistry.WPF.ViewModel
         private readonly IPageService _pageService;
         private Furniture _selectedFurniture;
         private Furniture _copiedFurniture;
-        private BeneficiaryContainer _container;
+        private GlobalContainer _container;
         private bool _deletable;
 
         public FurnitureDetailViewModel(IPageService pageService)
         {
             _pageService = pageService;
-            _container = BeneficiaryContainer.Instance;
+            _container = GlobalContainer.Instance;
             Messenger.Default.Register<Furniture>(this, OnMessageReceive);
 
             SaveCommand = new RelayCommand(Save, CanSave);
@@ -62,7 +62,7 @@ namespace _3iRegistry.WPF.ViewModel
 
         private void Done(object obj)
         {
-            DialogCoordinator.Instance.HideMetroDialogAsync(ViewModelLocator.BeneficiaryDetailViewModel, _pageService.GetFurnitureDetailDialog());
+            DialogCoordinator.Instance.HideMetroDialogAsync(ViewModelLocator.BeneficiaryDetailViewModel, _pageService.ShowFurnitureDetailDialog());
 
             // Release object to avoid breaking GUI validation template
             CopiedFurniture = null;

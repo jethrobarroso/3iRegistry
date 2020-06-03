@@ -22,13 +22,13 @@ namespace _3iRegistry.WPF.ViewModel
         private IBeneficiaryRepository _beneficiaryRepository;
         private ObservableCollection<Beneficiary> _beneficiaries;
         private Beneficiary _selectedBeneficiary;
-        private BeneficiaryContainer _container;
+        private GlobalContainer _container;
         private IDialogCoordinator _dialogCoordinator;
         private MetroDialogSettings dialogSettings;
 
         public DashboardViewModel(IBeneficiaryRepository beneficiaryRepository)
         {
-            _container = BeneficiaryContainer.Instance;
+            _container = GlobalContainer.Instance;
             _beneficiaryRepository = beneficiaryRepository;
             _dialogCoordinator = DialogCoordinator.Instance;
 

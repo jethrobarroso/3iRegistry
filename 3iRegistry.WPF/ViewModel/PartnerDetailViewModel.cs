@@ -16,12 +16,12 @@ namespace _3iRegistry.WPF.ViewModel
         private readonly IPageService _pageService;
         private Partner _selectedPartner;
         private Partner _copiedPartner;
-        private BeneficiaryContainer _container;
+        private GlobalContainer _container;
         private bool _deletable;
 
         public PartnerDetailViewModel(IPageService pageService)
         {
-            _container = BeneficiaryContainer.Instance;
+            _container = GlobalContainer.Instance;
             Messenger.Default.Register<Partner>(this, OnPartnerReceiveMessage);
             _pageService = pageService;
 
@@ -49,7 +49,7 @@ namespace _3iRegistry.WPF.ViewModel
         private void Done(object obj)
         {
             
-            DialogCoordinator.Instance.HideMetroDialogAsync(ViewModelLocator.BeneficiaryDetailViewModel, _pageService.GetPartnerDetailDialog());
+            DialogCoordinator.Instance.HideMetroDialogAsync(ViewModelLocator.BeneficiaryDetailViewModel, _pageService.ShowPartnerDetailDialog());
             CopiedPartner = null;
         }
 
