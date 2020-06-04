@@ -115,7 +115,7 @@ namespace _3iRegistry.WPF.ViewModel
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                _dialogCoordinator.ShowMessageAsync(this, "Backup Error", ex.Message);
             }
             
         }
@@ -134,7 +134,7 @@ namespace _3iRegistry.WPF.ViewModel
             }
             catch(Exception ex)
             {
-                MessageBox.Show(ex.Message, "Read Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                await _dialogCoordinator.ShowMessageAsync(this, "Read Error", ex.Message);
                 Beneficiaries = new ObservableCollection<Beneficiary>();
             }
             
@@ -143,6 +143,7 @@ namespace _3iRegistry.WPF.ViewModel
         private void ImportReceived(ObservableCollection<Beneficiary> list)
         {
             Beneficiaries = list;
+            _beneficiaryRepository.ImportBeneficiaries(list);
             CSVBackupSystem.Backup(Beneficiaries);
         }
     }

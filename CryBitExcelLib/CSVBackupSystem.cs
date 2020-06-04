@@ -37,9 +37,9 @@ namespace CryBitExcelLib
                     csv.WriteRecords(data);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                MessageBox.Show(ex.Message, "CSV Writing Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                throw;
             }
 
             //RotateBackup(backupDir, 10);

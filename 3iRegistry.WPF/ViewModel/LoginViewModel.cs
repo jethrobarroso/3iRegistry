@@ -2,6 +2,7 @@
 using _3iRegistry.WPF.Messages;
 using _3iRegistry.WPF.Services;
 using CryBitMVVMLib;
+using Microsoft.Extensions.Primitives;
 using QuickHash.Gen;
 using System;
 using System.Collections.Generic;
@@ -53,8 +54,12 @@ namespace _3iRegistry.WPF.ViewModel
             string password = ((PasswordBox)obj).Password;
             var user = _repo.GetUsers().FirstOrDefault(u => u.Username.Equals(_username) &&
             u.Password.Equals(password));
+            string token = string.Empty;
+            string path = _tokenSearcher.GetToken();
+            
+            if(!string.IsNullOrEmpty(path) && Path.GetExtension(path) == ".tkn")
+                token = File.ReadAllText(path);
 
-            var token = File.ReadAllText(_tokenSearcher.GetToken());
             var currentHash = gen.HashIt();
 
             if (user != null && token == currentHash)

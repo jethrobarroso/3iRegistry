@@ -18,7 +18,7 @@ namespace CryBitExcelLib
             Map(m => m.PersonId).Name("ID").TypeConverter<ApostropheStringConverter<string>>().Index(0);
             Map(m => m.LastName).Name("SURNAME").Index(1);
             Map(m => m.FirstName).Name("NAMES").Index(2);
-            Map(m => m.Gender).Name("GENDER").Index(3);
+            Map(m => m.Gender).Name("GENDER").TypeConverter<CustomEnumConverter<Gender>>().Index(3);
             Map(m => m.Hop.Project).Name("PROJECT").Index(4);
             Map(m => m.Hop.Block).Name("BLOCK").Index(5);
             Map(m => m.Hop.Unit).Name("UNIT").Index(6);

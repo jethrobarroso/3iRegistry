@@ -115,15 +115,15 @@ namespace _3iRegistry.WPF.ViewModel
             }
             catch (CoreEnumConverterException ex)
             {
-                MessageBox.Show(ex.Message, $"CSV Read Error ({ex.ErrorOriginatorType.Name})", MessageBoxButton.OK, MessageBoxImage.Error);
+                _coordinator.ShowMessageAsync(this, $"CSV Read Error ({ex.ErrorOriginatorType.Name})", ex.Message);
             }
             catch (CsvImportException ex)
             {
-                MessageBox.Show(ex.Message, $"CSV Read Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _coordinator.ShowMessageAsync(this, $"CSV Read Error", ex.Message);
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                _coordinator.ShowMessageAsync(this, "Error", ex.Message);
             }
         }
 

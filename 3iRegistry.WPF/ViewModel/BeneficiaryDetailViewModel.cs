@@ -37,7 +37,7 @@ namespace _3iRegistry.WPF.ViewModel
         private ObservableCollection<string> _settlements;
         private int _memberCountExclAdds;
         private bool _hasErrors;
-        private bool _isAdmin;
+        private bool _editable;
 
         private double _groupboxMaxWidth = 1000;
         private double _groupboxWidth = 700;
@@ -90,10 +90,10 @@ namespace _3iRegistry.WPF.ViewModel
         public string AddParam { get; } = "add";
         public string EditParam { get; } = "edit";
 
-        public bool IsAdmin
+        public bool Editable
         {
-            get { return _isAdmin; }
-            set { SetProperty(ref _isAdmin, value); }
+            get { return _editable; }
+            set { SetProperty(ref _editable, value); }
         }
 
         public int MemberCountExclAdds 
@@ -338,19 +338,17 @@ namespace _3iRegistry.WPF.ViewModel
             {
                 SelectedBeneficiary = _container.SelectedBeneficiary;
                 CopiedBeneficiary = (Beneficiary)SelectedBeneficiary.Clone();
+
+                if (_container.UserLogingType == UserType.Admin)
+                    Editable = true;
+                else Editable = false;
             }
             else
             {
+                Editable = true;
                 SelectedBeneficiary = Beneficiary.Create;
                 CopiedBeneficiary = Beneficiary.Create;
             }
-
-            //CopiedBeneficiary.EnableValidation = true;
-
-            if (_container.UserLogingType == UserType.Admin)
-                IsAdmin = true;
-            else
-                IsAdmin = false;
 
             Partners = new ObservableCollection<Partner>(CopiedBeneficiary.Partners);
             _container.SelectedPartners = Partners;

@@ -46,6 +46,11 @@ namespace _3iRegistry.DAL
             return _beneficieries;
         }
 
+        public void ImportBeneficiaries(IEnumerable<Beneficiary> newBeneficiaries)
+        {
+            _beneficieries = newBeneficiaries.ToList();
+        }
+
         public Beneficiary AddBeneficiary(Beneficiary beneficiary)
         {
             _beneficieries.Add(beneficiary);
