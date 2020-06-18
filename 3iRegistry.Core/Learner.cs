@@ -67,16 +67,6 @@ namespace _3iRegistry.Core
                         else if (!RegexValidation.IsName(LastName))
                             result = "Incorrect name format";
                         break;
-
-                    //case "Grade":
-                    //    if (string.IsNullOrEmpty(_grade))
-                    //        result = "Grade required";
-                    //    break;
-
-                    //case "School":
-                    //    if (string.IsNullOrEmpty(_grade))
-                    //        result = "School name required";
-                    //    break;
                 }
 
                 ValidateProperty(propertyName, result);
