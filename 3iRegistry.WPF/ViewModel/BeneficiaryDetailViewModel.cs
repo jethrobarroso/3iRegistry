@@ -48,6 +48,8 @@ namespace _3iRegistry.WPF.ViewModel
         private GlobalContainer _container;
         private DoneSignal _doneSignal = new DoneSignal();
         private MetroDialogSettings dialogSettings;
+        private ObservableCollection<BuildingSnag> _snags;
+        private BuildingSnag _selectedSnag;
         private readonly IBeneficiaryRepository _beneficiaryRepository;
         #endregion
 
@@ -63,6 +65,7 @@ namespace _3iRegistry.WPF.ViewModel
             EditSelectedPartnerCommand = new RelayCommand(EditPartner, CanEditPartner);
             EditSelectedLearnerCommand = new RelayCommand(EditLearner, CanEditLearner);
             EditSelectedFurnitureCommand = new RelayCommand(EditFurniture, CanEditFurniture);
+            EditSelectedSnagCommand = new RelayCommand(EditSnag, CanEditSnag);
 
             dialogSettings = new MetroDialogSettings()
             {
@@ -82,6 +85,7 @@ namespace _3iRegistry.WPF.ViewModel
         public ICommand AddLearnerCommand { get; set; }
         public ICommand EditSelectedFurnitureCommand { get; set; }
         public ICommand AddFurnitureCommand { get; set; }
+        public ICommand EditSelectedSnagCommand { get; set; }
         public ICommand CancelBeneficiaryCommand { get; set; }
         #endregion
 
@@ -118,6 +122,12 @@ namespace _3iRegistry.WPF.ViewModel
         {
             get { return _selectedBeneficiary; }
             set { SetProperty(ref _selectedBeneficiary, value); }
+        }
+
+        public ObservableCollection<BuildingSnag> Snags
+        {
+            get { return _snags; }
+            set { SetProperty(ref _snags, value); }
         }
 
         public ObservableCollection<Learner> Learners
@@ -191,6 +201,12 @@ namespace _3iRegistry.WPF.ViewModel
             get { return _selectedFurniture; }
             set { SetProperty(ref _selectedFurniture, value); }
         }
+
+        public BuildingSnag SelectedSnag
+        {
+            get { return _selectedSnag; }
+            set { SetProperty(ref _selectedSnag, value); }
+        }
         #endregion
 
         #region Command callback methods
@@ -207,43 +223,30 @@ namespace _3iRegistry.WPF.ViewModel
             }
         }
 
+        private void EditSnag(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private bool CanEditSnag(object mode)
+        {
+            return CanEditObject(mode, _selectedSnag);
+        }
+
         private bool CanEditLearner(object mode)
         {
-            if (DesignerProperties.GetIsInDesignMode(designChecker) || mode == null)
-                return true;
-
-            if (mode.ToString() == AddParam)
-                return true;
-            if (_selectedLearner != null)
-                return true;
-
-            return false;
+            return CanEditObject(mode, _selectedLearner);
         }
+
 
         private bool CanEditFurniture(object mode)
         {
-            if (DesignerProperties.GetIsInDesignMode(designChecker) || mode == null)
-                return true;
-
-            if (mode.ToString() == AddParam)
-                return true;
-            if (_selectedFurniture != null)
-                return true;
-
-            return false;
+            return CanEditObject(mode, _selectedFurniture);
         }
 
         private bool CanEditPartner(object mode)
         {
-            if (DesignerProperties.GetIsInDesignMode(designChecker) || mode == null)
-                return true;
-
-            if (mode.ToString() == AddParam)
-                return true;
-            if (_selectedPartner != null)
-                return true;
-
-            return false;
+            return CanEditObject(mode, _selectedPartner);
         }
 
         private async void EditLearner(object mode)
@@ -395,6 +398,7 @@ namespace _3iRegistry.WPF.ViewModel
         {
             /// Register to receive Beneficiary from Dashboard
             Messenger.Default.Register<PageTransitionMessage>(this, OnStateMessageReceived);
+
             Messenger.Default.Register<ModifySubItemMessage>(this, s =>
             {
                 if (!_container.IsEditPartner)
@@ -443,6 +447,24 @@ namespace _3iRegistry.WPF.ViewModel
                 RaisePropertyChanged("Learners");
             }, ViewModelLocator.LearnerDetailViewModel);
 
+            Messenger.Default.Register<ModifySubItemMessage>(this, s =>
+            {
+                if (!_container.IsEditSnag)
+                    Snags.Add(s.SubObject as BuildingSnag);
+
+                switch (s.Operation)
+                {
+                    case MemberOperation.Add:
+                        Snags.Add(s.SubObject as BuildingSnag);
+                        break;
+
+
+
+                }
+
+                RaisePropertyChanged("Snags");
+            }, ViewModelLocator.LearnerDetailViewModel);
+
             Messenger.Default.Register<ModifySubItemMessage>(this, f =>
             {
                 if (!_container.IsEditFurniture)
@@ -451,5 +473,25 @@ namespace _3iRegistry.WPF.ViewModel
             }, ViewModelLocator.FurnitureDetailViewModel);
         }
         #endregion
+
+        /// <summary>
+        /// Helper method for CanEdit[Method] command callbacks
+        /// </summary>
+        /// <typeparam name="T">The object that the command will check against</typeparam>
+        /// <param name="mode">The mode received from the controls parameter</param>
+        /// <param name="property">The object that the command will check against</param>
+        /// <returns></returns>
+        private bool CanEditObject<T>(object mode, T property)
+        {
+            if (DesignerProperties.GetIsInDesignMode(designChecker) || mode == null)
+                return true;
+
+            if (mode.ToString() == AddParam)
+                return true;
+            if (property != null)
+                return true;
+
+            return false;
+        }
     }
 }

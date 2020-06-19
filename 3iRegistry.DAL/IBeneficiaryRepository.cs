@@ -14,10 +14,14 @@ namespace _3iRegistry.DAL
         Beneficiary DeleteBeneficiary(Beneficiary beneficiary);
         Task<Beneficiary> UpdateBeneficiary(Beneficiary beneficiary);
         Beneficiary AddBeneficiary(Beneficiary beneficiary);
+        
         string AddSchool(string school);
         string AddSettlement(string settlement);
+        string AddDepartment(string department);
         List<string> GetSchools();
         List<string> GetSettlements();
+        List<string> GetDepartments();
+        
         void ImportBeneficiaries(IEnumerable<Beneficiary> newBeneficiaries);
         IEnumerable<User> GetUsers();
 

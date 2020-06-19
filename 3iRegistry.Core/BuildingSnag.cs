@@ -11,6 +11,13 @@ namespace _3iRegistry.Core
         private string _department;
         private string _comment;
 
+        public BuildingSnag()
+        {
+            Id = Guid.NewGuid();
+        }
+
+        public Guid Id { get; set; }
+
         public string Department
         {
             get { return _department; }

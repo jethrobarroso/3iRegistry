@@ -1,4 +1,4 @@
-﻿<dialogs:CustomDialog x:Class="_3iRegistry.WPF.View.FurnitureDetailView"
+﻿<dialogs:CustomDialog x:Class="_3iRegistry.WPF.View.SnagDetailView"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:dialogs="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -7,9 +7,9 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
                       xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"         
                       xmlns:local="clr-namespace:_3iRegistry.WPF.View"
-                      mc:Ignorable="d" Title="Furniture Details"
-                      d:DesignHeight="200" d:DesignWidth="800" Height="200"
-                      DataContext="{Binding Source={StaticResource viewModelLocator}, Path=FurnitureDetailViewModel}">
+                      mc:Ignorable="d" Title="Snag Details"
+                      d:DesignHeight="260" d:DesignWidth="800" Height="260"
+                      DataContext="{Binding Source={StaticResource viewModelLocator}, Path=SnagDetailViewModel}">
 
   <dialogs:CustomDialog.Resources>
     <Style TargetType="{x:Type Label}">
@@ -26,11 +26,11 @@
       <ColumnDefinition/>
       <ColumnDefinition/>
     </Grid.ColumnDefinitions>
-    
+
     <Grid Margin="10" Grid.ColumnSpan="2">
       <Grid.ColumnDefinitions>
         <ColumnDefinition Width="auto"/>
-        <ColumnDefinition/> 
+        <ColumnDefinition/>
       </Grid.ColumnDefinitions>
       <Grid.RowDefinitions>
         <RowDefinition Height="auto"/>
@@ -38,17 +38,18 @@
       </Grid.RowDefinitions>
 
       <Label Template="{StaticResource requiredLable}"
-             Grid.Row="0" Margin="0,5,0,0" Content="Item Name"></Label>
-      <TextBox x:Name="txtName" Grid.Row="0" Margin="0,5,0,0" Grid.Column="1"
-               Style="{StaticResource ValidateTextBox}"
-               Text="{Binding CopiedFurniture.Name, UpdateSourceTrigger=PropertyChanged, 
-                      ValidatesOnDataErrors=True}"></TextBox>
+             Grid.Row="0" Margin="0,5,0,0" Content="Department"></Label>
+      <ComboBox x:Name="txtName" Grid.Row="0" Margin="0,5,0,0" Grid.Column="1"
+                Style="{StaticResource ValidateComboBox}"
+                Text="{Binding Department, UpdateSourceTrigger=PropertyChanged, 
+                      ValidatesOnDataErrors=True}"
+                ItemsSource="{Binding Snags}" IsEditable="True" />
 
-      <Label Grid.Row="1" Margin="0,5,0,0" Content="Quantity"></Label>
-      <controls:NumericUpDown Grid.Row="1" Grid.Column="1" Width="100" HorizontalAlignment="Left"
-                              Value="{Binding CopiedFurniture.Qty, UpdateSourceTrigger=PropertyChanged,
-                                      ValidatesOnDataErrors=True}"
-                              Minimum="1" Margin="0,5,0,0"/>
+      <Label Grid.Row="1" Margin="0,5,0,0" Content="Comments"
+             Template="{StaticResource requiredLable}"/>
+      <TextBox Grid.Row="1" Grid.Column="1" Height="100" Margin="0,5,0,0"
+               AcceptsReturn="True" TextWrapping="Wrap"
+               Text="{Binding Comments}"/>
     </Grid>
 
     <StackPanel Orientation="Horizontal" Grid.Row="5" Grid.ColumnSpan="2" HorizontalAlignment="Center">

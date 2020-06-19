@@ -24,6 +24,7 @@ namespace _3iRegistry.WPF
                 var tokenFinder = new FdTokenFinder();
 
                 LoginViewModel = new LoginViewModel(pageService, tokenFinder, repository);
+                SnagDetailViewModel = new SnagDetailViewModel(pageService);
                 LearnerDetailViewModel = new LearnerDetailViewModel(pageService, repository);
                 FurnitureDetailViewModel = new FurnitureDetailViewModel(pageService);
                 PartnerDetailViewModel = new PartnerDetailViewModel(pageService);
@@ -34,6 +35,7 @@ namespace _3iRegistry.WPF
             else
             {
                 LoginViewModel = App.ServiceProvider.GetRequiredService<LoginViewModel>();
+                SnagDetailViewModel = App.ServiceProvider.GetRequiredService<SnagDetailViewModel>();
                 LearnerDetailViewModel = App.ServiceProvider.GetRequiredService<LearnerDetailViewModel>();
                 FurnitureDetailViewModel = App.ServiceProvider.GetRequiredService<FurnitureDetailViewModel>();
                 PartnerDetailViewModel = App.ServiceProvider.GetRequiredService<PartnerDetailViewModel>();
@@ -43,6 +45,7 @@ namespace _3iRegistry.WPF
             }
         }
 
+        public static SnagDetailViewModel SnagDetailViewModel { get; }
         public static LoginViewModel LoginViewModel { get; }
         public static LearnerDetailViewModel LearnerDetailViewModel { get; }
         public static FurnitureDetailViewModel FurnitureDetailViewModel { get; }

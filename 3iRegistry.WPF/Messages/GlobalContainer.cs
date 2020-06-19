@@ -35,10 +35,13 @@ namespace _3iRegistry.WPF.Messages
         public ObservableCollection<Partner> SelectedPartners { get; set; }
         public ObservableCollection<Learner> SelectedLearners { get; set; }
         public ObservableCollection<Furniture> SelectedFurniture { get; set; }
+        public ObservableCollection<BuildingSnag> SelectedBuildingSnags { get; set; }
+
         public bool IsEditMode { get; set; } = false;
         public bool IsEditPartner { get; set; }
         public bool IsEditLearner { get; set; } = false;
         public bool IsEditFurniture { get; set; } = false;
+        public bool IsEditSnag { get; set; } = false;
         public bool IsCanceled { get; set; } = false;
         
         public UserType UserLogingType { get; set; }

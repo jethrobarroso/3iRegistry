@@ -32,6 +32,7 @@ namespace _3iRegistry.Core
         private string _illnessDescription;
         private string _grantDescription;
         private int _memberCountExclAdds = 1;
+        private List<BuildingSnag> _snags;
         #endregion
 
         #region Entity properties
@@ -101,6 +102,12 @@ namespace _3iRegistry.Core
             set { SetProperty(ref _furniture, value); }
         }
 
+        public List<BuildingSnag> Snags
+        {
+            get { return _snags; }
+            set { SetProperty(ref _snags, value); }
+        }
+
         public DSTVState DSTV
         {
             get { return _dstv; }
@@ -116,29 +123,13 @@ namespace _3iRegistry.Core
         public int HouseholdMemberCount
         {
             get { return _householdMemberCount; }
-            set 
-            { 
-                SetProperty(ref _householdMemberCount, value);
-                //if (_unemployedCount > _householdMemberCount)
-                //{
-                //    UnemployedCount = value - _learners.Count;
-                //}  
-            }
+            set { SetProperty(ref _householdMemberCount, value); }
         }
-
-        //public int EmployedCount
-        //{
-        //    get { return _employedCount; }
-        //    set { SetProperty(ref _employedCount, value); }
-        //}
 
         public int UnemployedCount
         {
             get { return _unemployedCount; }
-            set 
-            {
-                SetProperty(ref _unemployedCount, value);
-            }
+            set { SetProperty(ref _unemployedCount, value); }
         }
 
         public int GrantCount

@@ -72,6 +72,7 @@ namespace _3iRegistry.WPF
 
             // Register all ViewModels
             services.AddSingleton<LoginViewModel>();
+            services.AddSingleton<SnagDetailViewModel>();
             services.AddSingleton<LearnerDetailViewModel>();
             services.AddSingleton<PartnerDetailViewModel>();
             services.AddSingleton<FurnitureDetailViewModel>();
@@ -81,6 +82,7 @@ namespace _3iRegistry.WPF
 
             // Register all Views
             //services.AddTransient<LoginView>();
+            services.AddSingleton<SnagDetailView>();
             services.AddSingleton<LearnerDetailView>();
             services.AddSingleton<PartnerDetailView>();
             services.AddSingleton<FurnitureDetailView>();

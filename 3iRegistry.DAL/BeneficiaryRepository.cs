@@ -26,12 +26,14 @@ namespace _3iRegistry.DAL
         private List<string> _schools;
         private List<string> _settlements;
         private List<User> _users;
+        private List<string> _departments;
 
         public BeneficiaryRepository()
         {
             LoadUsers();
             LoadSchools();
             LoadSettlements();
+            LoadDepartments();
         }
 
         /// <summary>
@@ -138,6 +140,18 @@ namespace _3iRegistry.DAL
             return _settlements;
         }
 
+        public string AddDepartment(string department)
+        {
+            if (!string.IsNullOrEmpty(department) && !_departments.Contains(department))
+                _departments.Add(department);
+            return department;
+        }
+
+        public List<string> GetDepartments()
+        {
+            return _departments;
+        }
+
         public IEnumerable<User> GetUsers()
         {
             return _users;
@@ -197,6 +211,14 @@ namespace _3iRegistry.DAL
             {
                 new User(){ Username = "sysadmin", Password = "Q@zw1234", UserType = UserType.Admin},
                 new User(){ Username = "visitor", Password = "3iTempUser1!", UserType = UserType.Visitor}
+            };
+        }
+
+        private void LoadDepartments()
+        {
+            _departments = new List<string>()
+            {
+                "Department 1", "Department 2", "Department 3"
             };
         }
 

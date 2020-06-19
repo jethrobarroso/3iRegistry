@@ -45,6 +45,16 @@ namespace _3iRegistry.WPF.Services
             return App.ServiceProvider.GetRequiredService<LearnerDetailView>();
         }
 
+        public void ShowSnagDetailViewDialog()
+        {
+            DialogCoordinator.Instance.ShowMetroDialogAsync(this, App.ServiceProvider.GetRequiredService<SnagDetailView>());
+        }
+
+        public void HideSnagDetailViewDialog()
+        {
+            DialogCoordinator.Instance.HideMetroDialogAsync(this, App.ServiceProvider.GetRequiredService<SnagDetailView>());
+        }
+
         public void ShowLoginView()
         {
             if (_loginWindow == null)

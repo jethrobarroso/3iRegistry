@@ -7,6 +7,7 @@
             SubObject = subObject;
             Operation = operation;
         }
+
         public object SubObject { get; set; }
         public MemberOperation Operation { get; set; }
     }
