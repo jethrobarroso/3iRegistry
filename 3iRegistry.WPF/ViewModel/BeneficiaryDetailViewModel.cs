@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.DirectoryServices.ActiveDirectory;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Transactions;
@@ -35,20 +36,20 @@ namespace _3iRegistry.WPF.ViewModel
         private ObservableCollection<Learner> _learners;
         private ObservableCollection<Furniture> _furniture;
         private ObservableCollection<string> _settlements;
+        private ObservableCollection<BuildingSnag> _snags;
         private int _memberCountExclAdds;
         private bool _hasErrors;
         private bool _editable;
 
         private double _groupboxMaxWidth = 1000;
         private double _groupboxWidth = 700;
-        private PageService _pageService = new PageService();
+        private IPageService _pageService = new PageService();
         private IDialogCoordinator _dialogCoordinator;
         private CustomDialog _activeDialog;
         private DependencyObject designChecker = new DependencyObject();
         private GlobalContainer _container;
         private DoneSignal _doneSignal = new DoneSignal();
         private MetroDialogSettings dialogSettings;
-        private ObservableCollection<BuildingSnag> _snags;
         private BuildingSnag _selectedSnag;
         private readonly IBeneficiaryRepository _beneficiaryRepository;
         #endregion
@@ -80,11 +81,8 @@ namespace _3iRegistry.WPF.ViewModel
         public ICommand UpdatePageLayoutCommand { get; set; }
         public ICommand SaveBeneficiaryCommand { get; set; }
         public ICommand EditSelectedPartnerCommand { get; set; }
-        public ICommand AddPartnerCommand { get; set; }
         public ICommand EditSelectedLearnerCommand { get; set; }
-        public ICommand AddLearnerCommand { get; set; }
         public ICommand EditSelectedFurnitureCommand { get; set; }
-        public ICommand AddFurnitureCommand { get; set; }
         public ICommand EditSelectedSnagCommand { get; set; }
         public ICommand CancelBeneficiaryCommand { get; set; }
         #endregion
@@ -223,30 +221,30 @@ namespace _3iRegistry.WPF.ViewModel
             }
         }
 
-        private void EditSnag(object obj)
-        {
-            throw new NotImplementedException();
-        }
+        private bool CanEditSnag(object mode) => CanEditObject(mode, _selectedSnag);
+        private bool CanEditLearner(object mode) => CanEditObject(mode, _selectedLearner);
+        private bool CanEditFurniture(object mode) => CanEditObject(mode, _selectedFurniture);
+        private bool CanEditPartner(object mode) => CanEditObject(mode, _selectedPartner);
 
-        private bool CanEditSnag(object mode)
+        private void EditSnag(object mode)
         {
-            return CanEditObject(mode, _selectedSnag);
-        }
+            // Load dialog first before sending message. 
+            // This will avoid breaking the validation template
+            _pageService.ShowSnagDetailViewDialog(this);
 
-        private bool CanEditLearner(object mode)
-        {
-            return CanEditObject(mode, _selectedLearner);
-        }
-
-
-        private bool CanEditFurniture(object mode)
-        {
-            return CanEditObject(mode, _selectedFurniture);
-        }
-
-        private bool CanEditPartner(object mode)
-        {
-            return CanEditObject(mode, _selectedPartner);
+            // If user clicks add or edit button
+            if (mode.ToString() == AddParam)
+            {
+                _container.IsEditLearner = false;
+                Messenger.Default.Send(new ModifySubItemMessage(new BuildingSnag(), MemberOperation.Add),
+                    ViewModelLocator.SnagDetailViewModel);
+            }
+            else
+            {
+                _container.IsEditLearner = true;
+                Messenger.Default.Send(new ModifySubItemMessage(SelectedSnag, MemberOperation.Update),
+                    ViewModelLocator.SnagDetailViewModel);
+            }
         }
 
         private async void EditLearner(object mode)
@@ -267,8 +265,6 @@ namespace _3iRegistry.WPF.ViewModel
                 _container.IsEditLearner = true;
                 Messenger.Default.Send<Learner>(SelectedLearner);
             }
-
-
         }
 
         private async void EditFurniture(object mode)
@@ -316,6 +312,7 @@ namespace _3iRegistry.WPF.ViewModel
             CopiedBeneficiary.Partners = new List<Partner>(Partners);
             CopiedBeneficiary.Learners = new List<Learner>(Learners);
             CopiedBeneficiary.Furniture = new List<Furniture>(Furniture);
+            CopiedBeneficiary.Snags = new List<BuildingSnag>(Snags);
             _container.SelectedBeneficiary = CopiedBeneficiary;
 
             if (!Settlements.Contains(CopiedBeneficiary.Settlement))
@@ -449,17 +446,24 @@ namespace _3iRegistry.WPF.ViewModel
 
             Messenger.Default.Register<ModifySubItemMessage>(this, s =>
             {
+                var snagMessage = s.SubObject as BuildingSnag;
+
                 if (!_container.IsEditSnag)
-                    Snags.Add(s.SubObject as BuildingSnag);
+                    Snags.Add(snagMessage);
 
                 switch (s.Operation)
                 {
                     case MemberOperation.Add:
-                        Snags.Add(s.SubObject as BuildingSnag);
+                        Snags.Add(snagMessage);
                         break;
-
-
-
+                    case MemberOperation.Update:
+                        var snag = Snags.SingleOrDefault(s => s.Id == _selectedSnag.Id);
+                        snag.Department = snagMessage.Department;
+                        snag.Comment = snagMessage.Comment;
+                        break;
+                    case MemberOperation.Delete:
+                        Snags.Remove(SelectedSnag);
+                        break;
                 }
 
                 RaisePropertyChanged("Snags");

@@ -43,7 +43,7 @@
                 Style="{StaticResource ValidateComboBox}"
                 Text="{Binding Department, UpdateSourceTrigger=PropertyChanged, 
                       ValidatesOnDataErrors=True}"
-                ItemsSource="{Binding Snags}" IsEditable="True" />
+                ItemsSource="{Binding Departments}" IsEditable="True" />
 
       <Label Grid.Row="1" Margin="0,5,0,0" Content="Comments"
              Template="{StaticResource requiredLable}"/>

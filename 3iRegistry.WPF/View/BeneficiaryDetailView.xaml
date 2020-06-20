@@ -190,11 +190,11 @@
               </ListBox>
               <StackPanel Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,5,0,0" 
                     VerticalAlignment="Top" Grid.Row="8" Grid.Column="4">
-                <Button Command="{Binding EditSelectedFurnitureCommand}" 
+                <Button Command="{Binding EditSelectedSnagCommand}" 
                         CommandParameter="{Binding EditParam}">
                   <iconPacks:PackIconBoxIcons Kind="SolidEdit" />
                 </Button>
-                <Button Command="{Binding EditSelectedFurnitureCommand}" 
+                <Button Command="{Binding EditSelectedSnagCommand}" 
                         CommandParameter="{Binding AddParam}">
                   <iconPacks:PackIconFeatherIcons Kind="PlusSquare" />
                 </Button>

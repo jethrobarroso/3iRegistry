@@ -20,7 +20,7 @@ namespace _3iRegistry.DAL
         string AddDepartment(string department);
         List<string> GetSchools();
         List<string> GetSettlements();
-        List<string> GetDepartments();
+        IEnumerable<string> GetDepartments();
         
         void ImportBeneficiaries(IEnumerable<Beneficiary> newBeneficiaries);
         IEnumerable<User> GetUsers();

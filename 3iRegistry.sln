@@ -13,6 +13,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryBitMVVMLib", "3iRegistry
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryBitExcelLib", "CryBitExcelLib\CryBitExcelLib.csproj", "{F0CADB11-580E-4012-AD84-74734B2C290B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "3iRegistry.Test", "3iRegistry.Test\3iRegistry.Test.csproj", "{6A4607BB-2381-49E9-9DFB-BDB2E71241F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{F0CADB11-580E-4012-AD84-74734B2C290B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F0CADB11-580E-4012-AD84-74734B2C290B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F0CADB11-580E-4012-AD84-74734B2C290B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A4607BB-2381-49E9-9DFB-BDB2E71241F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A4607BB-2381-49E9-9DFB-BDB2E71241F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A4607BB-2381-49E9-9DFB-BDB2E71241F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A4607BB-2381-49E9-9DFB-BDB2E71241F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -147,7 +147,7 @@ namespace _3iRegistry.DAL
             return department;
         }
 
-        public List<string> GetDepartments()
+        public IEnumerable<string> GetDepartments()
         {
             return _departments;
         }

@@ -32,16 +32,17 @@ namespace CryBitExcelLib
             Map(m => m.Settlement).Name("SETTLEMENT").Index(14);
             Map(m => m.Address).Name("ADDRESS").Index(15);
             Map(m => m.Furniture).Name("FURNITURE").TypeConverter<ListConverter<Furniture>>().Index(16);
-            Map(m => m.Partners).Name("PARTNER(S)").TypeConverter<ListConverter<Partner>>().Index(17);
-            Map(m => m.Learners).Name("LEARNER(S)").TypeConverter<ListConverter<Learner>>().Index(18);
-            Map(m => m.DSTV).Name("DSTV").TypeConverter<CustomEnumConverter<DSTVState>>().Index(19);
-            Map(m => m.HouseholdMemberCount).Name("HOUSEHOLD MEMBERS COUNT").Default(0).Index(20);
-            Map(m => m.UnemployedCount).Name("UNEMPLOYED COUNT").Default(0).Index(21);
-            Map(m => m.GrantCount).Name("GRANT COUNT").Default(0).Index(22);
-            Map(m => m.IllnessCount).Name("CRHONIC ILLNESS COUNT").Default(0).Index(23);
-            Map(m => m.IllnessDescription).Name("ILLNESS DESCRIPTION").Index(24);
-            Map(m => m.GrantDescription).Name("GRANT DESCRIPTION").Index(25);
-            Map(m => m.Notes).Name("NOTES").Index(26);
+            Map(m => m.Furniture).Name("SNAGS").TypeConverter<ListConverter<BuildingSnag>>().Index(17);
+            Map(m => m.Partners).Name("PARTNER(S)").TypeConverter<ListConverter<Partner>>().Index(18);
+            Map(m => m.Learners).Name("LEARNER(S)").TypeConverter<ListConverter<Learner>>().Index(19);
+            Map(m => m.DSTV).Name("DSTV").TypeConverter<CustomEnumConverter<DSTVState>>().Index(20);
+            Map(m => m.HouseholdMemberCount).Name("HOUSEHOLD MEMBERS COUNT").Default(0).Index(21);
+            Map(m => m.UnemployedCount).Name("UNEMPLOYED COUNT").Default(0).Index(22);
+            Map(m => m.GrantCount).Name("GRANT COUNT").Default(0).Index(23);
+            Map(m => m.IllnessCount).Name("CRHONIC ILLNESS COUNT").Default(0).Index(24);
+            Map(m => m.IllnessDescription).Name("ILLNESS DESCRIPTION").Index(25);
+            Map(m => m.GrantDescription).Name("GRANT DESCRIPTION").Index(26);
+            Map(m => m.Notes).Name("NOTES").Index(27);
         }
     }
 }

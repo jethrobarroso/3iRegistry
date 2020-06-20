@@ -32,6 +32,8 @@
         <DataGridTextColumn Header="Address" Binding="{Binding Path=Address}" />
         <DataGridTextColumn Header="Furniture" 
                             Binding="{Binding Path=Furniture, Converter={StaticResource localFurnitureConverter}}" />
+        <DataGridTextColumn Header="Snags" 
+                            Binding="{Binding Path=Snags, Converter={StaticResource localFurnitureConverter}}" />
         <DataGridTextColumn Header="Spouse(s)" 
                             Binding="{Binding Path=Partners, Converter={StaticResource localSpouseConverter}}" />
         <DataGridTextColumn Header="Learners" 

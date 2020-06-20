@@ -46,12 +46,9 @@ namespace _3iRegistry.WPF
             base.OnStartup(e);
             await _host.StartAsync();
 
-            //var appView = _host.Services.GetRequiredService<MainWindowView>();
-            //appView.DataContext = _host.Services.GetRequiredService<MainWindowViewModel>();
-            //appView.Show();
+            //_host.Services.GetRequiredService<IPageService>().ShowLoginView();
+            _host.Services.GetRequiredService<IPageService>().ShowMainView();
 
-            //_host.Services.GetRequiredService<LoginView>().Show();
-             _host.Services.GetRequiredService<IPageService>().ShowLoginView();
         }
 
         protected override async void OnExit(ExitEventArgs e)

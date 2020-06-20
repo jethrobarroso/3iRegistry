@@ -2,6 +2,8 @@
 {
     public class ModifySubItemMessage
     {
+        public ModifySubItemMessage() { }
+
         public ModifySubItemMessage(object subObject, MemberOperation operation)
         {
             SubObject = subObject;

@@ -17,18 +17,21 @@ namespace CryBitExcelLib
         {
             if (typeof(Partner).IsAssignableFrom(typeof(T)))
             {
-                return SpouseToolSet.StringToSpouse(text);
+                return CollectionToolset.StringToSpouse(text);
             }
 
             if (typeof(Furniture).IsAssignableFrom(typeof(T)))
             {
-                return FurnitureToolSet.StringToFurniture(text);
+                return CollectionToolset.StringToFurniture(text);
             }
 
             if (typeof(Learner).IsAssignableFrom(typeof(T)))
             {
-                return LearnerToolSet.StringToLearners(text);
+                return CollectionToolset.StringToLearners(text);
             }
+
+            //if(typeof(BuildingSnag).IsAssignableFrom(typeof(T)))
+            //    return 
 
             string message = $"The value could not be parsed.\n";
             throw new CsvImportException(message)

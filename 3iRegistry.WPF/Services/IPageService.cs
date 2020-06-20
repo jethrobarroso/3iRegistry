@@ -12,5 +12,7 @@ namespace _3iRegistry.WPF.Services
         LearnerDetailView ShowLearnerDetailDialog();
         void ShowMainView();
         void ShowLoginView();
+        void ShowSnagDetailViewDialog(object context);
+        void HideSnagDetailViewDialog(object context);
     }
 }

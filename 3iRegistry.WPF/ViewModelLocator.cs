@@ -24,7 +24,7 @@ namespace _3iRegistry.WPF
                 var tokenFinder = new FdTokenFinder();
 
                 LoginViewModel = new LoginViewModel(pageService, tokenFinder, repository);
-                SnagDetailViewModel = new SnagDetailViewModel(pageService);
+                SnagDetailViewModel = new SnagDetailViewModel(pageService, repository);
                 LearnerDetailViewModel = new LearnerDetailViewModel(pageService, repository);
                 FurnitureDetailViewModel = new FurnitureDetailViewModel(pageService);
                 PartnerDetailViewModel = new PartnerDetailViewModel(pageService);

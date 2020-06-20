@@ -22,6 +22,7 @@ namespace _3iRegistry.Core
         private List<Partner> _partners;
         private List<Learner> _learners;
         private List<Furniture> _furniture;
+        private List<BuildingSnag> _snags;
         private DSTVState _dstv;
         private string _notes;
         private int _householdMemberCount = 1;
@@ -32,7 +33,6 @@ namespace _3iRegistry.Core
         private string _illnessDescription;
         private string _grantDescription;
         private int _memberCountExclAdds = 1;
-        private List<BuildingSnag> _snags;
         #endregion
 
         #region Entity properties
