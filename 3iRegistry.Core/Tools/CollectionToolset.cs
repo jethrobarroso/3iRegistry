@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 
 namespace _3iRegistry.Core.Tools
 {
-    public class CollectionToolset
+    public static class CollectionToolset
     {
         public static List<Partner> StringToSpouse(string value)
         {
@@ -15,9 +15,6 @@ namespace _3iRegistry.Core.Tools
                 return list;
 
             var splitEntities = value.Split(';');
-
-            //Match match;
-            //string expression = @"^\s*?(?<id>\d*),(?<fname>[a-z]*),(?<lname>[a-z]*),(?<gender>(Male|Female)),(?<dob>\d*[\/\\-]\d*[\/\\-]\d*),(?<status>.[a-z]*)\s*$";
 
             Partner partner;
 
@@ -112,6 +109,23 @@ namespace _3iRegistry.Core.Tools
 
             if (string.IsNullOrEmpty(snagsString))
                 return list;
+
+            var splitList = snagsString.Split(';');
+
+            for (int i = 0; i < splitList.Length; i++)
+            {
+                var match = Regex.Match(splitList[i], @"^(\w*),(.*)");
+                var splitItem = new string[2] { match.Groups[1].Value, match.Groups[2].Value };
+
+                if (!match.Success)
+                    throw new ArgumentException($"There was an issue parsing the input data\nInput data: {splitList[i]}");
+
+                list.Add(new BuildingSnag()
+                {
+                    Department = splitItem[0],
+                    Comment = splitItem[1]
+                });
+            }
 
             return list;
         }
