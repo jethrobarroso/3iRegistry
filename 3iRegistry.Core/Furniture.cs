@@ -37,10 +37,7 @@ namespace _3iRegistry.Core
             return $"{Qty}x{Name}";
         }
 
-        string IDataErrorInfo.Error
-        {
-            get { return null; }
-        }
+        string IDataErrorInfo.Error => null;
 
         string IDataErrorInfo.this[string propertyName]
         {

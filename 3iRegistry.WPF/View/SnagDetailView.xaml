@@ -39,7 +39,7 @@
 
       <Label Template="{StaticResource requiredLable}"
              Grid.Row="0" Margin="0,5,0,0" Content="Department"></Label>
-      <ComboBox x:Name="txtName" Grid.Row="0" Margin="0,5,0,0" Grid.Column="1"
+      <ComboBox x:Name="txtDepartment" Grid.Row="0" Margin="0,5,0,0" Grid.Column="1"
                 Style="{StaticResource ValidateComboBox}"
                 Text="{Binding Department, UpdateSourceTrigger=PropertyChanged, 
                       ValidatesOnDataErrors=True}"

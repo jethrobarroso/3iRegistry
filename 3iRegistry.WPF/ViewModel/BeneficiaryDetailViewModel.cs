@@ -151,10 +151,7 @@ namespace _3iRegistry.WPF.ViewModel
 
         public ObservableCollection<Partner> Partners
         {
-            get
-            {
-                return _partners;
-            }
+            get { return _partners; }
             set 
             {
                 SetProperty(ref _partners, value);
@@ -235,15 +232,13 @@ namespace _3iRegistry.WPF.ViewModel
             // If user clicks add or edit button
             if (mode.ToString() == AddParam)
             {
-                _container.IsEditLearner = false;
-                Messenger.Default.Send(new ModifySubItemMessage(new BuildingSnag(), MemberOperation.Add),
-                    ViewModelLocator.SnagDetailViewModel);
+                _container.IsEditSnag = false;                                                                       
+                Messenger.Default.Send(new BuildingSnag());
             }
             else
             {
-                _container.IsEditLearner = true;
-                Messenger.Default.Send(new ModifySubItemMessage(SelectedSnag, MemberOperation.Update),
-                    ViewModelLocator.SnagDetailViewModel);
+                _container.IsEditSnag = true;
+                Messenger.Default.Send(SelectedSnag);
             }
         }
 
@@ -356,6 +351,7 @@ namespace _3iRegistry.WPF.ViewModel
             _container.SelectedLearners = Learners;
             Furniture = new ObservableCollection<Furniture>(CopiedBeneficiary.Furniture);
             _container.SelectedFurniture = Furniture;
+            Snags = new ObservableCollection<BuildingSnag>(CopiedBeneficiary.Snags);
             Settlements = new ObservableCollection<string>(_beneficiaryRepository.GetSettlements());
             UpdateHouseholdMinCount();
         }
@@ -448,26 +444,19 @@ namespace _3iRegistry.WPF.ViewModel
             {
                 var snagMessage = s.SubObject as BuildingSnag;
 
-                if (!_container.IsEditSnag)
-                    Snags.Add(snagMessage);
-
                 switch (s.Operation)
                 {
                     case MemberOperation.Add:
                         Snags.Add(snagMessage);
-                        break;
-                    case MemberOperation.Update:
-                        var snag = Snags.SingleOrDefault(s => s.Id == _selectedSnag.Id);
-                        snag.Department = snagMessage.Department;
-                        snag.Comment = snagMessage.Comment;
                         break;
                     case MemberOperation.Delete:
                         Snags.Remove(SelectedSnag);
                         break;
                 }
 
+                _pageService.HideSnagDetailViewDialog(this);
                 RaisePropertyChanged("Snags");
-            }, ViewModelLocator.LearnerDetailViewModel);
+            }, ViewModelLocator.SnagDetailViewModel);
 
             Messenger.Default.Register<ModifySubItemMessage>(this, f =>
             {

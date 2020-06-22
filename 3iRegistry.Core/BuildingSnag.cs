@@ -6,7 +6,7 @@ using System.Text;
 
 namespace _3iRegistry.Core
 {
-    public class BuildingSnag : BindableBase, IDataErrorInfo
+    public class BuildingSnag : BindableBase
     {
         private string _department;
         private string _comment;
@@ -30,30 +30,9 @@ namespace _3iRegistry.Core
             set { SetProperty(ref _comment, value); }
         }
 
-        string IDataErrorInfo.Error => throw new NotImplementedException();
-
-        string IDataErrorInfo.this[string propertyName]
+        public override string ToString()
         {
-            get
-            {
-                string result = null;
-
-                switch (propertyName)
-                {
-                    case "Department":
-                        if (string.IsNullOrEmpty(_department))
-                            result = "Department fields required";
-                        break;
-                    case "Comment":
-                        if (string.IsNullOrEmpty(_comment))
-                            result = "Must comment on the snag";
-                        break;
-                }
-
-                ValidateProperty(propertyName, result);
-
-                return result;
-            }
+            return $"{_department},{_comment}";
         }
     }
 }

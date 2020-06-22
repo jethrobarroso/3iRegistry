@@ -10,7 +10,8 @@
   
   <Application.Resources>
     <ResourceDictionary>
-      <converter:DateConverter x:Key="dateConverter"></converter:DateConverter>
+      <converter:SnagConverter x:Key="localSnagConverter"/>
+      <converter:DateConverter x:Key="dateConverter"/>
       <converter:ObservableCollectionConverter x:Key="localObservableListConverter"/>
       <converter:CrudButtonVisibilityConverter x:Key="crudButtonVisibleConverter"/>
       <converter:SelectedEnumItemConverter x:Key="localEnumSelectionConverter"/>

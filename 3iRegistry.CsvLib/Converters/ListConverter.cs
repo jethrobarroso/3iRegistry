@@ -16,16 +16,22 @@ namespace CryBitExcelLib
         public object ConvertFromString(string text, IReaderRow row, MemberMapData memberMapData)
         {
             if (typeof(Partner).IsAssignableFrom(typeof(T)))
+            {
                 return CollectionToolset.StringToSpouse(text);
+            }
 
             if (typeof(Furniture).IsAssignableFrom(typeof(T)))
+            {
                 return CollectionToolset.StringToFurniture(text);
+            }
 
             if (typeof(Learner).IsAssignableFrom(typeof(T)))
+            {
                 return CollectionToolset.StringToLearners(text);
+            }
 
-            if (typeof(BuildingSnag).IsAssignableFrom(typeof(T)))
-                return CollectionToolset.StringToSnags(text);
+            //if (typeof(BuildingSnag).IsAssignableFrom(typeof(T)))
+            //    return
 
             string message = $"The value could not be parsed.\n";
             throw new CsvImportException(message)

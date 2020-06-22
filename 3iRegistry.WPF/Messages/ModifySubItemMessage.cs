@@ -4,6 +4,8 @@
     {
         public ModifySubItemMessage() { }
 
+        public ModifySubItemMessage(object subObject) { SubObject = subObject; }
+
         public ModifySubItemMessage(object subObject, MemberOperation operation)
         {
             SubObject = subObject;

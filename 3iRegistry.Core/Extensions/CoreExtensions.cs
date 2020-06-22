@@ -56,7 +56,7 @@ namespace _3iRegistry.Core.Extensions
                     listString += $"{item}";
                     if (i != items.Count - 1)
                     {
-                        listString += "; ";
+                        listString += ";";
                     }
                 }
             }

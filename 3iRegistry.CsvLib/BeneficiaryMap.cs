@@ -32,7 +32,7 @@ namespace CryBitExcelLib
             Map(m => m.Settlement).Name("SETTLEMENT").Index(14);
             Map(m => m.Address).Name("ADDRESS").Index(15);
             Map(m => m.Furniture).Name("FURNITURE").TypeConverter<ListConverter<Furniture>>().Index(16);
-            Map(m => m.Snags).Name("SNAGS").TypeConverter<ListConverter<BuildingSnag>>().Index(17);
+            Map(m => m.Furniture).Name("SNAGS").TypeConverter<ListConverter<BuildingSnag>>().Index(17);
             Map(m => m.Partners).Name("PARTNER(S)").TypeConverter<ListConverter<Partner>>().Index(18);
             Map(m => m.Learners).Name("LEARNER(S)").TypeConverter<ListConverter<Learner>>().Index(19);
             Map(m => m.DSTV).Name("DSTV").TypeConverter<CustomEnumConverter<DSTVState>>().Index(20);

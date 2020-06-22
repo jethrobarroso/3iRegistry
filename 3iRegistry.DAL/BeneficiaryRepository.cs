@@ -105,15 +105,7 @@ namespace _3iRegistry.DAL
 
             CustomCsvReader reader = new CustomCsvReader(file);
 
-            //try
-            //{
             await Task.Factory.StartNew(() => _beneficieries = reader.ReadBeneficiariesFromCSV().ToList());
-            //}
-            //catch (Exception ex)
-            //{
-
-            //    MessageBox.Show(ex.Message);
-            //}
         }
 
         public string AddSchool(string school)

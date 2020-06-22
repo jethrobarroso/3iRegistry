@@ -121,6 +121,10 @@ namespace _3iRegistry.WPF.ViewModel
             {
                 _coordinator.ShowMessageAsync(this, $"CSV Read Error", ex.Message);
             }
+            catch (ArgumentException ex)
+            {
+                _coordinator.ShowMessageAsync(this, "Invalid CSV Input", ex.Message);
+            }
             catch (Exception ex)
             {
                 _coordinator.ShowMessageAsync(this, "Error", ex.Message);

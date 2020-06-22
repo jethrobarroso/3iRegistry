@@ -114,7 +114,7 @@ namespace _3iRegistry.Core.Tools
 
             for (int i = 0; i < splitList.Length; i++)
             {
-                var match = Regex.Match(splitList[i], @"^(\w*),(.*)");
+                var match = Regex.Match(splitList[i], @"^([\w\s]*),(.*)");
                 var splitItem = new string[2] { match.Groups[1].Value, match.Groups[2].Value };
 
                 if (!match.Success)

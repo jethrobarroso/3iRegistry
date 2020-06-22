@@ -132,6 +132,10 @@ namespace _3iRegistry.WPF.ViewModel
                 var list = await _beneficiaryRepository.GetBeneficiaries();
                 Beneficiaries = list.ToObservableCollection();
             }
+            catch (ArgumentException ex)
+            {
+                await _dialogCoordinator.ShowMessageAsync(this, "Invalid CSV Input", ex.Message);
+            }
             catch(Exception ex)
             {
                 await _dialogCoordinator.ShowMessageAsync(this, "Read Error", ex.Message);

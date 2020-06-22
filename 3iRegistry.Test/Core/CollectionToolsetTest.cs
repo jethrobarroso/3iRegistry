@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 
-namespace _3iRegistry.Test
+namespace _3iRegistry.Core.Test
 {
     [TestFixture]
     public class CollectionToolsetTest
@@ -19,17 +19,20 @@ namespace _3iRegistry.Test
             Assert.IsEmpty(snags);
         }
 
-        [Test]
-        public void StringToSnag_SingleItemList_SingleItemString()
+        [TestCase("D 1,C 1", "D 1", "C 1")]
+        [TestCase("D1,C1", "D1", "C1")]
+        [TestCase("D1,C1,with,commas", "D1", "C1,with,commas")]
+        public void StringToSnag_SingleItemList_SingleItemString(
+            string csvInputString,
+            string expectedDepartment,
+            string expectedComment)
         {
-            string input = "Department1,Fault1";
-
-            var list = CollectionToolset.StringToSnags(input);
+            var list = CollectionToolset.StringToSnags(csvInputString);
             var snag = list.FirstOrDefault();
 
             Assert.That(list.Count, Is.EqualTo(1));
-            Assert.That(snag.Department, Is.EqualTo("Department1"));
-            Assert.That(snag.Comment, Is.EqualTo("Fault1"));
+            Assert.That(snag.Department, Is.EqualTo(expectedDepartment));
+            Assert.That(snag.Comment, Is.EqualTo(expectedComment));
         }
 
         [Test]
@@ -64,17 +67,6 @@ namespace _3iRegistry.Test
             var ex = Assert.Throws<ArgumentException>(() => CollectionToolset.StringToSnags("Item1;Item3,Item4"));
 
             Assert.That(ex.Message, Is.EqualTo(expectedMessage));
-        }
-
-        [Test]
-        public void StringToSnag_ValidList_SnagCommentContainsCommas()
-        {
-            string input = "Department1,Comment,with,commas";
-            string expectedSnagComment = "Comment,with,commas";
-
-            var snag = CollectionToolset.StringToSnags(input).FirstOrDefault();
-
-            Assert.AreEqual(expectedSnagComment, snag.Comment);
         }
     }
 }
