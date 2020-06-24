@@ -173,33 +173,6 @@
                 </Button>
               </StackPanel>
 
-              <Label Grid.Row="8" Content="Snags" Margin="0,5,0,0"></Label>
-              <ListBox Style="{DynamicResource ScrollableListBox}" x:Name="listboxSnags" Grid.Row="8" 
-                       Grid.Column="1" Margin="0,5,0,0" SelectedItem="{Binding SelectedSnag}"
-                       ItemsSource="{Binding Snags}" Grid.ColumnSpan="3"
-                       BorderThickness="1" BorderBrush="{Binding ElementName=txtLastName, Path=BorderBrush}">
-                <ListBox.ItemTemplate>
-                  <DataTemplate>
-                    <StackPanel Orientation="Horizontal">
-                      <TextBlock Text="{Binding Department}"></TextBlock>
-                      <TextBlock Text=" : "></TextBlock>
-                      <TextBlock Text="{Binding Comment}"></TextBlock>
-                    </StackPanel>
-                  </DataTemplate>
-                </ListBox.ItemTemplate>
-              </ListBox>
-              <StackPanel Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,5,0,0" 
-                    VerticalAlignment="Top" Grid.Row="8" Grid.Column="4">
-                <Button Command="{Binding EditSelectedSnagCommand}" 
-                        CommandParameter="{Binding EditParam}">
-                  <iconPacks:PackIconBoxIcons Kind="SolidEdit" />
-                </Button>
-                <Button Command="{Binding EditSelectedSnagCommand}" 
-                        CommandParameter="{Binding AddParam}">
-                  <iconPacks:PackIconFeatherIcons Kind="PlusSquare" />
-                </Button>
-              </StackPanel>
-
               <Label Grid.Row="9" Content="DSTV" Margin="0,5,0,0"></Label>
               <ComboBox x:Name="comboDSTV" Grid.Row="9" Grid.Column="1" 
                         Margin="0,5,0,0" Grid.ColumnSpan="3"
@@ -217,6 +190,7 @@
                 <ColumnDefinition Width="56"/>
               </Grid.ColumnDefinitions>
               <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
                 <RowDefinition Height="auto"/>
@@ -266,6 +240,34 @@
                        IsEnabled="{Binding Editable}" Style="{StaticResource ValidateTextBox}"
                        Text="{Binding CopiedBeneficiary.Hop.WaterM, UpdateSourceTrigger=PropertyChanged,
                               ValidatesOnDataErrors=True}" />
+
+              <Label Grid.Row="8" Content="Snags" Margin="0,5,0,0"
+                     FontWeight="Bold"></Label>
+              <ListBox Style="{DynamicResource ScrollableListBox}" x:Name="listboxSnags" Grid.Row="8" 
+                       Grid.Column="1" Margin="0,5,0,0" SelectedItem="{Binding SelectedSnag}"
+                       ItemsSource="{Binding Snags}" Grid.ColumnSpan="3"
+                       BorderThickness="1" BorderBrush="{Binding ElementName=txtLastName, Path=BorderBrush}">
+                <ListBox.ItemTemplate>
+                  <DataTemplate>
+                    <StackPanel Orientation="Horizontal">
+                      <TextBlock Text="{Binding Department}"></TextBlock>
+                      <TextBlock Text=" : "></TextBlock>
+                      <TextBlock Text="{Binding Comment}"></TextBlock>
+                    </StackPanel>
+                  </DataTemplate>
+                </ListBox.ItemTemplate>
+              </ListBox>
+              <StackPanel Orientation="Horizontal" Height="30" HorizontalAlignment="Right" Margin="0,5,0,0" 
+                    VerticalAlignment="Top" Grid.Row="8" Grid.Column="4">
+                <Button Command="{Binding EditSelectedSnagCommand}" 
+                        CommandParameter="{Binding EditParam}">
+                  <iconPacks:PackIconBoxIcons Kind="SolidEdit" />
+                </Button>
+                <Button Command="{Binding EditSelectedSnagCommand}" 
+                        CommandParameter="{Binding AddParam}">
+                  <iconPacks:PackIconFeatherIcons Kind="PlusSquare" />
+                </Button>
+              </StackPanel>
             </Grid>
           </GroupBox>
         </StackPanel>

@@ -209,6 +209,7 @@ namespace _3iRegistry.Core
                 beneficiary.Partners = new List<Partner>();
                 beneficiary.Learners = new List<Learner>();
                 beneficiary.Furniture = new List<Furniture>();
+                beneficiary.Snags = new List<BuildingSnag>();
                 beneficiary.Hop = new HOP();
 
                 return beneficiary;

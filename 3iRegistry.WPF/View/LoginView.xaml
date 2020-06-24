@@ -12,6 +12,7 @@
         AllowsTransparency="True" Background="Transparent"
         WindowStyle="None" ResizeMode="NoResize"
         MouseDown="MainWindow_OnMouseDown"
+        FocusManager.FocusedElement="{Binding ElementName=textBoxUserName}"
         DataContext="{Binding Source={StaticResource viewModelLocator}, Path=LoginViewModel}">
 
   <Window.Resources>
@@ -59,7 +60,12 @@
     </Style>
   </Window.Resources>
 
-  <Grid>
+  <Window.InputBindings>
+    <KeyBinding Key="Return" Command="{Binding LoginCommand}"
+                CommandParameter="{Binding ElementName=pswBoxPassword}"/>
+  </Window.InputBindings>
+
+    <Grid>
     <Grid>
       <Grid.RowDefinitions>
         <RowDefinition/>
