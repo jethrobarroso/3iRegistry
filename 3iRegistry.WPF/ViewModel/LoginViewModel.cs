@@ -8,6 +8,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -21,6 +22,7 @@ namespace _3iRegistry.WPF.ViewModel
         private readonly IBeneficiaryRepository _repo;
         private string _loginErrorMessage;
         private string _username;
+        private string _version = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
 
         public LoginViewModel(IPageService pageService, ITokenFinder tokenSearcher, IBeneficiaryRepository repo)
         {
@@ -28,7 +30,7 @@ namespace _3iRegistry.WPF.ViewModel
             _tokenSearcher = tokenSearcher;
             _repo = repo;
             LoginCommand = new RelayCommand(Login, CanLogin);
-
+            
         }
 
         public ICommand LoginCommand { get; set; }
@@ -44,6 +46,11 @@ namespace _3iRegistry.WPF.ViewModel
         {
             get { return _loginErrorMessage; }
             set { SetProperty(ref _loginErrorMessage, value); }
+        }
+
+        public string Version
+        {
+            get { return $"v{_version}";}
         }
         #endregion
 

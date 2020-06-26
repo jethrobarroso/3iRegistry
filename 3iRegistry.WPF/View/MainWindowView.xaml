@@ -14,7 +14,7 @@
                       OverlayFadeIn="{StaticResource OverlayFastSemiFadeIn}"
                       OverlayFadeOut="{StaticResource OverlayFastSemiFadeOut}"
                       DataContext="{Binding Source={StaticResource viewModelLocator}, Path=MainWindowViewModel}"
-                      Title="3i Developments RDP Beneficiary Assistant" 
+                      Title="{Binding Title}" 
                       Height="700" Width="1000" MinHeight="700" MinWidth="900">
   
 

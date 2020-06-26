@@ -90,6 +90,12 @@
                    FontSize="22"
                    Foreground="White"
                    HorizontalAlignment="Center"/>
+        <TextBlock Text="{Binding Version}"
+                   FontWeight="Light"
+                   FontFamily="helvetica"
+                   FontSize="16"
+                   Foreground="White"
+                   HorizontalAlignment="Center"/>
       </StackPanel>
 
       <Button Style="{StaticResource MahApps.Styles.Button.Circle}" Width="40" Height="40" 

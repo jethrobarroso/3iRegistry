@@ -15,6 +15,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
@@ -30,27 +31,29 @@ namespace _3iRegistry.WPF.ViewModel
         private readonly IPageService _pageService;
         private bool _isDash;
         private UserControl _activePage;
-        private GlobalContainer _container;
+        private GlobalContainer _container = GlobalContainer.Instance;
         private PageTransitionMessage _stateChange = new PageTransitionMessage();
-        private IDialogCoordinator _coordinator;
+        private IDialogCoordinator _coordinator = DialogCoordinator.Instance;
         private MetroDialogSettings _dialogSettings;
+        private string _title;
+        private string _assemblyVersion = Assembly.GetExecutingAssembly().GetName().Version.ToString(3);
         #endregion
 
         public MainWindowViewModel(IPageService pageService)
         {
-            _pageService = pageService;
-            _container = GlobalContainer.Instance;
+            _pageService = pageService; 
             Messenger.Default.Register<DoneSignal>(this, OnSaveMessageReceived);
 
-            _coordinator = DialogCoordinator.Instance;
             _dialogSettings = new MetroDialogSettings()
             {
                 AffirmativeButtonText = "Yes",
                 NegativeButtonText = "No"
             };
 
+            Title = $"3i Developments RDP Beneficiary Assistant v{_assemblyVersion}";
             AddParam = "add";
             EditParam = "edit";
+
             InitializeCommands();
         }
 
@@ -66,6 +69,12 @@ namespace _3iRegistry.WPF.ViewModel
         #region Binding properties
         public string AddParam { get; } = "add";
         public string EditParam { get; } = "edit";
+
+        public string Title
+        {
+            get { return _title; }
+            set { SetProperty(ref _title, value); }
+        }
 
         public bool IsDash
         {

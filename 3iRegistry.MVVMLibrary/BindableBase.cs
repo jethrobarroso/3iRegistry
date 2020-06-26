@@ -9,15 +9,9 @@ namespace CryBitMVVMLib
     public class BindableBase : INotifyPropertyChanged
     {
         private bool _valid = true;
-        //private bool _enableValidation = false;
 
         protected Dictionary<string, string> _errors = new Dictionary<string, string>();
-
-        //public bool EnableValidation
-        //{
-        //    get { return _enableValidation; }
-        //    set { SetProperty(ref _enableValidation, value); }
-        //}
+        
 
         public bool IsValid
         {

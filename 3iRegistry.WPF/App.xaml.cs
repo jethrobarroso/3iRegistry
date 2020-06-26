@@ -46,8 +46,8 @@ namespace _3iRegistry.WPF
             base.OnStartup(e);
             await _host.StartAsync();
 
-            _host.Services.GetRequiredService<IPageService>().ShowLoginView();
-            //_host.Services.GetRequiredService<IPageService>().ShowMainView();
+            //_host.Services.GetRequiredService<IPageService>().ShowLoginView();
+            _host.Services.GetRequiredService<IPageService>().ShowMainView();
 
         }
 

@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\3iRegistry.Core\3iRegistry.Core.csproj" />
+    <ProjectReference Include="..\3iRegistry.WPF\3iRegistry.WPF.csproj" />
     <ProjectReference Include="..\CryBitExcelLib\CryBitExcelLib.csproj" />
   </ItemGroup>
 
