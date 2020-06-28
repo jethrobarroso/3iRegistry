@@ -210,87 +210,12 @@ namespace _3iRegistry.DAL
         {
             _departments = new List<string>()
             {
-                "Department 1", "Department 2", "Department 3"
+                "Electrical", 
+                "Water", 
+                "Painting", 
+                "Doors & cupboards", 
+                "Walls, floors and ceilings"
             };
-        }
-
-        private async Task LoadBeneficiariesInMemory()
-        {
-            await Task.Factory.StartNew(() => _beneficieries = new List<Beneficiary>()
-            {
-                new Beneficiary()
-                {
-                    FirstName = "Rudolf",
-                    LastName = "Jacobs",
-                    PersonId = "9102115553087",
-                    Gender = Gender.Male,
-                    Contact = "+27765556666",
-                    Address = "123 Sesame Street, Wakandaland",
-                    Settlement = "TR Informal settlement",
-                    Hop = new HOP() { Block = "A1", Project = "Project B", Unit = "8", Elec = "E1234", WaterE = "WE1234", WaterM = "WM1234" },
-                    Partners = new List<Partner>()
-                    {
-                        new Partner()
-                        {
-                            FirstName = "Sarah", LastName = "Conner",
-                            Gender = Gender.Female
-                        },
-                        new Partner()
-                        {
-                            FirstName = "Sabrina", LastName = "Lopez",
-                            Gender = Gender.Female
-                        }
-                    },
-                    Learners = new List<Learner>()
-                    {
-                        new Learner() { FirstName = "Sipho", LastName = "Beast" },
-                        new Learner() { FirstName = "Ryan", LastName = "Jarule" }
-                    },
-                    Furniture = new List<Furniture>()
-                    {
-                        new Furniture() { Name = "Chair", Qty = 3 },
-                        new Furniture() { Name = "Bed", Qty = 4 }
-                    },
-                    Notes = "This is a random note",
-                    HouseholdMemberCount = 8
-                },
-                new Beneficiary()
-                {
-                    FirstName = "Jonathan",
-                    LastName = "Joestark",
-                    PersonId = "9003145556087",
-                    Gender = Gender.Male,
-                    Contact = "+27762223333",
-                    Address = "123 Sesame2 Street, Wakandaland2",
-                    Settlement = "New Mandela Informal Settlement",
-                    Hop = new HOP() { Block = "A1", Project = "Project B", Unit = "8", Elec = "E1234", WaterE = "WE1234", WaterM = "WM1234" },
-                    Partners = new List<Partner>()
-                    {
-                        new Partner()
-                        {
-                            FirstName = "Silo", LastName = "Mage",
-                            Gender = Gender.Female
-                        },
-                        new Partner()
-                        {
-                            FirstName = "Kate", LastName = "Leblank",
-                            Gender = Gender.Female
-                        }
-                    },
-                    Learners = new List<Learner>()
-                    {
-                        new Learner() { FirstName = "Jims", LastName = "Wamg" },
-                        new Learner() { FirstName = "Shiro", LastName = "Kurusaki" }
-                    },
-                    Furniture = new List<Furniture>()
-                    {
-                        new Furniture() { Name = "Chair", Qty = 3 },
-                        new Furniture() { Name = "Bed", Qty = 4 }
-                    },
-                    Notes = "This is a random note",
-                    HouseholdMemberCount = 8
-                }
-            });
         }
     }
 }

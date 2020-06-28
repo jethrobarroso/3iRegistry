@@ -119,7 +119,8 @@ namespace _3iRegistry.WPF.ViewModel
 
             try
             {
-                list = CustomCsvReader.ImportFromCSV(filePath).ToObservableCollection();
+                var reader = new CustomCsvReader(filePath);
+                list = reader.ReadBeneficiariesFromCSV().ToObservableCollection();
                 Messenger.Default.Send(list, MemberOperation.Import);
             }
             catch (CoreEnumConverterException ex)
