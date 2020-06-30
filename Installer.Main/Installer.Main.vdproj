@@ -50,6 +50,14 @@
             "PrerequisitesLocation" = "2:1"
             "Url" = "8:"
             "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.7.2"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.7.2 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.7.2"
+                    }
+                }
             }
         }
         "Release"
@@ -201,19 +209,19 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:3i RDP Assistant"
-        "ProductCode" = "8:{B59ABB92-8B44-4F15-AF18-1F73E6C3E78E}"
-        "PackageCode" = "8:{775391A5-D265-43ED-8111-30B7F0CD2CD0}"
+        "ProductCode" = "8:{CD9FC260-2F46-4C64-852D-E60F5C3CBACC}"
+        "PackageCode" = "8:{CAD68539-D838-4446-B5DB-7731058DECFC}"
         "UpgradeCode" = "8:{2A4DCE6F-C314-44B9-B183-85B0F4486C63}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.0"
+        "ProductVersion" = "8:0.2.4"
         "Manufacturer" = "8:3i Developments"
         "ARPHELPTELEPHONE" = "8:+27767088065"
         "ARPHELPLINK" = "8:"
-        "Title" = "8:Installer.Main"
+        "Title" = "8:3i RDP Assistant Installer"
         "Subject" = "8:"
         "ARPCONTACT" = "8:Jethro Barroso"
         "Keywords" = "8:"
@@ -751,7 +759,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_D3261503B1034442A896DA25FC7987D6"
             {
-            "SourcePath" = "8:..\\3iRegistry.WPF\\obj\\Release\\netcoreapp3.1\\win-x64\\3iRegistry.WPF.exe"
+            "SourcePath" = "8:..\\3iRegistry.WPF\\obj\\Debug\\netcoreapp3.1\\win-x64\\3i Registry Assistant.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_87EBF7A07AC34EF4A32F1FD0321BED86"

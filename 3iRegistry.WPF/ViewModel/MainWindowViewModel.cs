@@ -50,7 +50,7 @@ namespace _3iRegistry.WPF.ViewModel
                 NegativeButtonText = "No"
             };
 
-            Title = $"3i Developments RDP Beneficiary Assistant v{_assemblyVersion}";
+            Title = $"3i Developments RDP Assistant v{_assemblyVersion}";
             AddParam = "add";
             EditParam = "edit";
 
