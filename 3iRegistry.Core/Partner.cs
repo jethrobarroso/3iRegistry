@@ -40,18 +40,21 @@ namespace _3iRegistry.Core
         {
             get
             {
-                //if (!EnableValidation)
-                //    return null;
-
                 string result = null;
                 Gender gender = Gender;
 
                 switch (propertyName)
                 {
                     case "PersonId":
-                        if (!string.IsNullOrEmpty(PersonId) && !RegexValidation.IsIdNumber(PersonId, ref gender))
-                            result = "Invalid ID number";
+                        if (string.IsNullOrEmpty(PersonId))
+                            result = "ID number cannot be empty";
+                        else if (RegexValidation.IsIdNumber(PersonId, ref gender))
+                        {
+                            Gender = gender;
+                        }
+                        else result = "Incorrect ID format";
                         break;
+
                     case "FirstName":
                         if (string.IsNullOrEmpty(FirstName))
                             result = "First name required";
@@ -64,6 +67,14 @@ namespace _3iRegistry.Core
                             result = "Last name required";
                         else if (!RegexValidation.IsName(LastName))
                             result = "Incorrect name format";
+                        break;
+
+                    case "Gender":
+                        if (RegexValidation.IsIdNumber(PersonId, ref gender))
+                        {
+                            if (Gender != gender)
+                                result = "Gender conflict with ID number";
+                        }
                         break;
 
                     default:

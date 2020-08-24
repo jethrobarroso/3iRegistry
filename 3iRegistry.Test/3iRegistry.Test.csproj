@@ -20,4 +20,8 @@
     <ProjectReference Include="..\CryBitExcelLib\CryBitExcelLib.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="WPF\" />
+  </ItemGroup>
+
 </Project>

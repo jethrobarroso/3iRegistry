@@ -67,7 +67,7 @@ namespace _3iRegistry.WPF.ViewModel
             if(!string.IsNullOrEmpty(path) && Path.GetExtension(path) == ".tkn")
                 token = File.ReadAllText(path);
 
-            var currentHash = gen.HashIt();
+            var currentHash = gen.HashIt(DateTime.Now.ToString("yyyyMMdd"));
 
             if (user != null && token == currentHash)
             {

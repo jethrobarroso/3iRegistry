@@ -48,6 +48,7 @@
         <RowDefinition Height="auto"/>
         <RowDefinition Height="auto"/>
         <RowDefinition Height="auto"/>
+        <RowDefinition Height="auto"/>
         <RowDefinition />
         <RowDefinition Height="50"/>
       </Grid.RowDefinitions>
@@ -63,21 +64,31 @@
                Style="{StaticResource ValidateTextBoxPartner}"
                Text="{Binding CopiedPartner.FirstName, UpdateSourceTrigger=PropertyChanged, 
                       ValidatesOnDataErrors=True}"></TextBox>
-      
+
       <Label Template="{StaticResource requiredLable}" Grid.Row="2" Margin="0,5,0,0" Content="Last Name"></Label>
       <TextBox x:Name="txtLastName" Grid.Row="2" Margin="0,5,0,0" Grid.Column="1"
                Style="{StaticResource ValidateTextBoxPartner}"
                Text="{Binding CopiedPartner.LastName, UpdateSourceTrigger=PropertyChanged,
                       ValidatesOnDataErrors=True}"></TextBox>
 
-      <Label Template="{StaticResource requiredLable}" Grid.Row="3" Margin="0,5,0,0" Content="Date of Birth"></Label>
-      <DatePicker x:Name="datePickerDOB" Grid.Row="3" HorizontalAlignment="Left"
+      <Label Template="{StaticResource requiredLable}" Grid.Column="0"
+                     Grid.Row="3" Content="Gender" Margin="0,5,0,0"></Label>
+      <ComboBox x:Name="comboGender" Grid.Row="3" Grid.Column="3" Margin="0,5,0,0" 
+                        Style="{StaticResource ValidateComboBox}"
+                        ItemsSource="{Binding CopiedPartner.Gender, 
+                                      Converter={StaticResource localGenderListConverter}}"
+                        SelectedIndex="{Binding CopiedPartner.Gender, ValidatesOnDataErrors=True,
+                                        Converter={StaticResource localEnumSelectionConverter}}"/>
+
+
+      <Label Template="{StaticResource requiredLable}" Grid.Row="4" Margin="0,5,0,0" Content="Date of Birth"></Label>
+      <DatePicker x:Name="datePickerDOB" Grid.Row="4" HorizontalAlignment="Left"
                           Margin="0,5,0,0" Grid.Column="1"
                           SelectedDate="{Binding CopiedPartner.DOB, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
                                          Converter={StaticResource dateConverter}}" />
 
-      <Label Grid.Row="4" Margin="0,5,0,0" Content="Marital Status"></Label>
-      <ComboBox x:Name="comboMaritalStatus" Grid.Row="4" Margin="0,5,0,0" Grid.Column="1"
+      <Label Grid.Row="5" Margin="0,5,0,0" Content="Marital Status"></Label>
+      <ComboBox x:Name="comboMaritalStatus" Grid.Row="5" Margin="0,5,0,0" Grid.Column="1"
                 ItemsSource="{Binding CopiedPartner.MaritalStatus, 
                               Converter={StaticResource localMaritalListConverter}}"
                 SelectedIndex="{Binding CopiedPartner.MaritalStatus, 

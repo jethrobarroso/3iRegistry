@@ -378,8 +378,6 @@ namespace _3iRegistry.WPF.ViewModel
             _copiedBeneficiary.MemberCountExclAdds += (_partners != null) ? _partners.Count : 0;
             if (_copiedBeneficiary.HouseholdMemberCount < _copiedBeneficiary.MemberCountExclAdds)
                 _copiedBeneficiary.HouseholdMemberCount = _copiedBeneficiary.MemberCountExclAdds;
-
-
         }
 
         #region Initializers

@@ -216,23 +216,13 @@ namespace _3iRegistry.Core
             }
         }
 
-        public void UpdateHouseholdCount(params int[] otherMembers)
-        {
-        }
-
         #region Validation
-        string IDataErrorInfo.Error
-        {
-            get { return null; }
-        }
+        string IDataErrorInfo.Error => null;
 
         string IDataErrorInfo.this[string propertyName]
         {
             get
             {
-                //if (!EnableValidation)
-                //    return null;
-
                 string result = null;
                 Gender gender = Gender;
 

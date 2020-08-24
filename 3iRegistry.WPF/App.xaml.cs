@@ -39,8 +39,6 @@ namespace _3iRegistry.WPF
             ServiceProvider = _host.Services;
         }
 
-        
-
         protected override async void OnStartup(StartupEventArgs e)
         {
             base.OnStartup(e);

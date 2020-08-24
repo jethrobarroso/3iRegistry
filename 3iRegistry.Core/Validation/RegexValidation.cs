@@ -35,7 +35,7 @@ namespace _3iRegistry.Core.Validation
 
             Match match = _regexId.Match(id);
             int genderVal = int.Parse(match.Groups["gender"].Value);
-            var result = false;
+            bool result;
 
             if (genderVal >= 5000 && genderVal <= 9999)
             {

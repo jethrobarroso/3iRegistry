@@ -45,9 +45,6 @@ namespace CryBitMVVMLib
                 _errors.Remove(propertyName);
             }
 
-            //if (EnableValidation && _errors.Count == 0)
-            //    IsValid = true;
-            //else IsValid = false;
             IsValid = (_errors.Count == 0) ? true : false;
         }
     }
