@@ -304,16 +304,23 @@ namespace _3iRegistry.WPF.ViewModel
 
         private void SaveBeneficiary(object beneficiary)
         {
-            CopiedBeneficiary.Partners = new List<Partner>(Partners);
-            CopiedBeneficiary.Learners = new List<Learner>(Learners);
-            CopiedBeneficiary.Furniture = new List<Furniture>(Furniture);
-            CopiedBeneficiary.Snags = new List<BuildingSnag>(Snags);
-            _container.SelectedBeneficiary = CopiedBeneficiary;
+            try
+            {
+                CopiedBeneficiary.Partners = new List<Partner>(Partners);
+                CopiedBeneficiary.Learners = new List<Learner>(Learners);
+                CopiedBeneficiary.Furniture = new List<Furniture>(Furniture);
+                CopiedBeneficiary.Snags = new List<BuildingSnag>(Snags);
+                _container.SelectedBeneficiary = CopiedBeneficiary;
 
-            if (!Settlements.Contains(CopiedBeneficiary.Settlement))
-                _beneficiaryRepository.AddSettlement(CopiedBeneficiary.Settlement);
+                if (!Settlements.Contains(CopiedBeneficiary.Settlement))
+                    _beneficiaryRepository.AddSettlement(CopiedBeneficiary.Settlement);
 
-            Messenger.Default.Send<DoneSignal>(_doneSignal);
+                Messenger.Default.Send<DoneSignal>(_doneSignal);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
         private bool CanSaveBeneficiary(object beneficiary)

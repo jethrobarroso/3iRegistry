@@ -19,8 +19,8 @@ namespace CryBitExcelLib
 
         public static void Backup<T>(IEnumerable<T> data)
         {
-            string activeDir = Directory.GetCurrentDirectory() + @"\Data";
-            string backupDir = Directory.GetCurrentDirectory() + @"\Backup";
+            string activeDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\3i Developments\Data";
+            string backupDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\3i Developments\Backup";
             string fileSuffix = DateTime.Now.ToString("yyMMdd-HHmmss");
             string backupFile = backupDir + @$"\BackupSheet-{fileSuffix}.csv";
             string activeFile = activeDir + @"\DataStore.csv";
@@ -55,10 +55,10 @@ namespace CryBitExcelLib
                     !string.IsNullOrEmpty(archiveDate) &&
                     !isSameDate)
                 {
-                    string archiveFullPath = Directory.GetCurrentDirectory() + @"\Archive";
+                    string archiveFullPath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\3i Developments\Archive";
                     if (!Directory.Exists(archiveFullPath))
                         Directory.CreateDirectory(archiveFullPath);
-                    ArchiveBackup(Directory.GetCurrentDirectory() + $@"\Archive\Archive-{archiveDate}.zip");
+                    ArchiveBackup(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + $@"\3i Developments\Archive\Archive-{archiveDate}.zip");
                     foreach (var f in backupDirFiles)
                         f.Delete();
                 } 
@@ -92,9 +92,9 @@ namespace CryBitExcelLib
         public static void ArchiveBackup(string archivePath, string backupDir=null)
         {
             if (backupDir == null)
-                backupDir = Directory.GetCurrentDirectory() + @"\Backup";
+                backupDir = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\3i Developments\Backup";
             if (archivePath == null)
-                archivePath = Directory.GetCurrentDirectory() + @"\Archive";
+                archivePath = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\3i Developments\Archive";
 
             if (!Directory.Exists(backupDir))
             {

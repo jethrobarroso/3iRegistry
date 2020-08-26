@@ -97,7 +97,7 @@ namespace _3iRegistry.DAL
 
         private async Task LoadBeneficiariesCSV()
         {
-            string file = Directory.GetCurrentDirectory() + @"\Data\DataStore.csv";
+            string file = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\3i Developments\Data\DataStore.csv";
             _beneficieries = new List<Beneficiary>();
 
             if (!File.Exists(file))
